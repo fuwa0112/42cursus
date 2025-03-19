@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:07:29 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/18 18:19:56 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 21:58:27 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t		src_len;
 	size_t		i;
-	const char	*s = src;
+	const char	*s;
 
 	src_len = 0;
 	i = 0;
+	s = src;
 	while (s[src_len])
 		src_len++;
 	if (size > 0)

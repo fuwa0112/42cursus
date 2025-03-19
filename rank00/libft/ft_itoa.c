@@ -6,13 +6,13 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:08:15 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/19 18:29:01 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 20:59:18 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static int	ft_num_len(int n)
+static int	num_len(int n)
 {
 	int	len;
 
@@ -29,7 +29,7 @@ static int	ft_num_len(int n)
 	return (len);
 }
 
-static char	*allocate_and_initialize(int len)
+static char	*allocate(int len)
 {
 	char	*str;
 
@@ -40,7 +40,7 @@ static char	*allocate_and_initialize(int len)
 	return (str);
 }
 
-static long	handle_sign(int n, char *str)
+static long	sign(int n, char *str)
 {
 	long	num;
 
@@ -59,8 +59,8 @@ char	*ft_itoa(int n)
 	char	*str;
 	long	num;
 
-	len = ft_num_len(n);
-	str = allocate_and_initialize(len);
+	len = num_len(n);
+	str = allocate(len);
 	if (!str)
 		return (NULL);
 	if (n == 0)
@@ -68,7 +68,7 @@ char	*ft_itoa(int n)
 		str[0] = '0';
 		return (str);
 	}
-	num = handle_sign(n, str);
+	num = sign(n, str);
 	while (num != 0)
 	{
 		str[--len] = (num % 10) + '0';

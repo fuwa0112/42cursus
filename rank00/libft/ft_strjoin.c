@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:08:27 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/19 19:02:26 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 22:04:54 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+static char	*ft_strcpy(char *dest, const char *src)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	result = (char *)malloc(len1 + len2 + 1);
+	result = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!result)
 		return (NULL);
 	ft_strcpy(result, s1);

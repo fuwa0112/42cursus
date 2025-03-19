@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:07:32 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/18 16:33:04 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 21:47:54 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (*s != '\0')
-	{
+	while (*s++ != '\0')
 		count++;
-		s++;
-	}
 	return (count);
 }

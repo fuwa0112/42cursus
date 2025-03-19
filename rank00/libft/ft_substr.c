@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:08:37 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/19 18:31:44 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 22:28:26 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 	while (src[i] != '\0' && i < n)
 	{
 		dest[i] = src[i];
-		++i;
+		i++;
 	}
 	while (i < n)
 	{

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:08:18 by thitoe            #+#    #+#             */
-/*   Updated: 2025/03/19 18:29:26 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/03/19 21:30:08 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void	ft_putendl_fd(char *s, int fd)
 	if (!s)
 		return ;
 	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
+		write(fd, s++, 1);
 	write(fd, "\n", 1);
 }
