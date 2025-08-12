@@ -3,6 +3,7 @@
 		"stddef.h": "c",
 		"unistd.h": "c",
 		"limits.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"random": "c"
 	}
 }

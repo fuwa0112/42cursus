@@ -3,50 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:43 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/25 11:40:31 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:41 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 18:08:28 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	const char	*last;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	last = NULL;
+	while (*s)
 	{
-		if (s[i] == (char)c)
-			return ((char *) &s[i]);
-		i--;
+		if (*s == (char)c)
+			last = s;
+		s++;
 	}
-	return (NULL);
+	if ((char)c == '\0')
+		return ((char *)s);
+	return ((char *)last);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char *str = "bonjour";
-
-	printf("%s\n", ft_strrchr(str + 2, 'b'));
-	printf("%s\n", strrchr(str + 2, 'b'));
-	printf("%s\n", ft_strrchr("hello", '\0'));
-	printf("%s\n", strrchr("hello", '\0'));
-	printf("%s\n", ft_strrchr("hello", 'e'));
-	printf("%s\n", strrchr("hello", 'e'));
-	printf("%s\n", ft_strrchr("bonjour", 'b'));
-	printf("%s\n", strrchr("bonjour", 'b'));
-	printf("%s\n", ft_strrchr("", 'e'));
-	printf("%s\n", strrchr("", 'e'));
-	printf("%s\n", ft_strrchr("", '\0'));
-	printf("%s\n", strrchr("", '\0'));
-	printf("%s\n", ft_strrchr(" ", '\0'));
-	printf("%s\n", strrchr(" ", '\0'));
-	return (0);
-}
-*/

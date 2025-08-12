@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 13:25:12 by huaydin           #+#    #+#             */
-/*   Updated: 2025/08/09 19:15:32 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/12 19:59:38 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,25 @@ void	free_and_exit_with_message(t_stacks *s, char *msg, int i)
 
 static void	validate_arguments(int argc, char **argv)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	c;
 
-	i = 0;
 	if (argc < 2)
 		free_and_exit_with_message(NULL, "", 1);
+	i = 0;
 	while (++i < argc)
 	{
-		j = 0;
-		if (!argv[i][0] || (argv[i][0] && argv[i][0] == ' '))
+		if (!argv[i][0] || argv[i][0] == ' ')
 			free_and_exit_with_message(NULL, "Error\n", 1);
-		while (argv[i][j] != '\0')
+		j = -1;
+		while (argv[i][++j])
 		{
-			if ((!(ft_isdigit(argv[i][j])) && (argv[i][j] != ' ')
-			&& (argv[i][j] != '-' && argv[i][j] != '+' && argv[i][j] != ' '))
-			|| (argv[i][j] == '-' && argv[i][j + 1] == '\0')
-			|| (argv[i][j] == '+' && argv[i][j + 1] == '\0')
-			|| (argv[i][j] == '-' && argv[i][j + 1] == ' ')
-			|| (argv[i][j] == '+' && argv[i][j + 1] == ' '))
+			c = argv[i][j];
+			if ((!ft_isdigit(c) && c != ' ' && c != '-' && c != '+')
+				|| ((c == '-' || c == '+')
+					&& (!argv[i][j + 1] || argv[i][j + 1] == ' ')))
 				free_and_exit_with_message(NULL, "Error\n", 1);
-			j++;
 		}
 	}
 }

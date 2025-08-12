@@ -3,32 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:43 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/13 16:24:42 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:44 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/19 19:08:10 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (c - 'A' + 'a');
-	else
-		return (c);
+		c += 32;
+	return (c);
 }
-/*
-#include <stdio.h>
-int	main (void)
-{
-	char	c1;
-	char	c2;
-
-	c1 = 'B';
-	c2 = 'd';
-	printf("char: %c, and in lowercase %c\n", c1, ft_tolower(c1));
-	printf("char: %c, and in lowercase %c\n", c2, ft_tolower(c2));
-}
-*/

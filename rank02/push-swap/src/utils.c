@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:04:41 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/09 19:05:46 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/12 20:38:50 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	parse_numbers(t_stacks *s)
 	int		z;
 
 	z = 0;
-	tmp = ft_split(s->join_args, ' ');
 	i = 0;
+	tmp = ft_split(s->join_args, ' ');
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
 		s->a[z++] = ft_atol(tmp[i++], s);
@@ -75,56 +75,45 @@ void	initialize_stacks(int argc, char **argv, t_stacks *s)
 		free_and_exit_with_message(s, "Error\n", 1);
 }
 
-void	create_index(t_stacks *s)
+static int	skip_spaces_and_sign(const char *n, int *sign)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		*new_a;
+	int	i;
 
-	new_a = malloc(s->a_size * sizeof * new_a);
-	if (new_a == NULL)
-		free_and_exit_with_message(s, "Error\n", 1);
-	i = -1;
-	while (++i < s->a_size)
+	i = 0;
+	*sign = 1;
+	while (n[i] == ' ' || (n[i] >= '\t' && n[i] <= '\r'))
+		i++;
+	if (n[i] == '+' || n[i] == '-')
 	{
-		k = 0;
-		j = -1;
-		while (++j < s->a_size)
-			if (s->a[i] > s->a[j])
-				k++;
-		new_a[i] = k;
+		if (n[i] == '-')
+			*sign = -1;
+		i++;
 	}
-	i = s->a_size;
-	while (i--)
-		s->a[i] = new_a[i];
-	free(new_a);
+	return (i);
 }
 
 int	ft_atol(const char *n, t_stacks *s)
 {
 	int			i;
-	long		sign;
+	int			sign;
 	long long	res;
+	int			digits;
 
 	res = 0;
-	sign = 1;
-	i = 0;
-	while (n[i] == ' ' || (n[i] >= '\t' && n[i] <= '\r'))
-		i++;
-	if ((n[i] == '+' || n[i] == '-'))
-	{
-		if (n[i] == '-')
-			sign = -1;
-		i++;
-	}
+	digits = 0;
+	i = skip_spaces_and_sign(n, &sign);
 	while (n[i])
 	{
-		if (res > 2147483647 || (res * sign) < -2147483648 || ft_strlen(n) > 11)
+		if (n[i] < '0' || n[i] > '9')
 			free_and_exit_with_message(s, "Error\n", 1);
-		if (!(n[i] >= '0' && n[i] <= '9'))
+		digits++;
+		if (digits > 10)
+			free_and_exit_with_message(s, "Error\n", 1);
+		if (res > (LONG_MAX - (n[i] - '0')) / 10)
 			free_and_exit_with_message(s, "Error\n", 1);
 		res = res * 10 + (n[i++] - '0');
 	}
+	if ((res * sign) > INT_MAX || (res * sign) < INT_MIN)
+		free_and_exit_with_message(s, "Error\n", 1);
 	return ((int)(res * sign));
 }

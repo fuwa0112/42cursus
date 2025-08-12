@@ -3,46 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:42 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/15 16:59:12 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:09 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 17:54:27 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*s1_p;
-	unsigned char	*s2_p;
+	const unsigned char	*p1;
+	const unsigned char	*p2;
+	size_t				i;
 
-	s1_p = (unsigned char *)s1;
-	s2_p = (unsigned char *)s2;
-	while (n--)
+	p1 = (const unsigned char *)s1;
+	p2 = (const unsigned char *)s2;
+	i = 0;
+	while (i < n)
 	{
-		if (*s1_p != *s2_p)
-			return (*s1_p - *s2_p);
-		s1_p++;
-		s2_p++;
+		if (p1[i] != p2[i])
+			return (p1[i] - p2[i]);
+		i++;
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	char	str1[50] = "ayxbcdefgh";
-	char	str2[50] = "zyxbcdefgh";
-	int		dig1;
-	int		dig2;
-
-	dig1 = 4;
-	dig2 = 2;
-	printf("ft_cmp:%d\n", ft_memcmp(str1, str2, 0));
-	printf("cmp:%d\n", memcmp(str1, str2, 0));
-	printf("ft_cmp:%d\n", ft_memcmp(&dig1, &dig2, 4));
-	printf("cmp:%d\n", memcmp(&dig1, &dig2, 4));
-}
-*/

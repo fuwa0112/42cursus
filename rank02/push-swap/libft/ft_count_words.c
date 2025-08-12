@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 16:46:27 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 21:33:04 by huaydin          ###   ########.fr       */
+/*   Created: 2025/08/12 19:14:19 by thitoe            #+#    #+#             */
+/*   Updated: 2025/08/12 19:18:34 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	ft_count_words(char const *s, char c)
 {
-	if (!new)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	int	wordcount;
+
+	wordcount = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			wordcount++;
+			while (*s != c && *s)
+				s++;
+		}
+		else
+			s++;
+	}
+	return (wordcount);
 }

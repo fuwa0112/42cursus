@@ -3,41 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:43 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/25 14:31:21 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:37 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 18:20:58 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
 
-	if (little[0] == '\0')
+	if (*little == '\0')
 		return ((char *)big);
 	i = 0;
 	while (i < len && big[i])
 	{
-		j = 0;
-		while (len > (i + j) && big[i + j] == little[j])
+		if (big[i] == little[0])
 		{
-			if (little[j + 1] == '\0')
+			j = 0;
+			while (i + j < len && little[j] && big[i + j] == little[j])
+				j++;
+			if (little[j] == '\0')
 				return ((char *)&big[i]);
-			j++;
 		}
 		i++;
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	printf("re=%s", ft_strnstr("bigtexthere","te",6));
-	return(0);
-}
-*/

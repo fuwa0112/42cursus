@@ -3,44 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:43 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 23:30:20 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:08:37 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/19 22:28:26 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
+
+static char	*ft_strncpy(char *dest, const char *src, unsigned int n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (src[i] != '\0' && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char		*str;
-	size_t		strsize;
+	char	*sub;
+	size_t	s_len;
+	size_t	actual_len;
 
-	if (!s)
+	sub = NULL;
+	if (s == NULL)
 		return (NULL);
-	strsize = ft_strlen(s);
-	if (start >= strsize)
-		start = strsize;
-	if (len > strsize - start)
-		len = strsize - start;
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+	{
+		sub = (char *)malloc(1);
+		if (sub != NULL)
+			sub[0] = '\0';
+		return (sub);
+	}
+	actual_len = s_len - start;
+	if (actual_len > len)
+		actual_len = len;
+	sub = (char *)malloc(actual_len + 1);
+	if (sub == NULL)
 		return (NULL);
-	ft_strlcpy(str, &s[start], len + 1);
-	return (str);
+	ft_strncpy(sub, s + start, actual_len);
+	sub[actual_len] = '\0';
+	return (sub);
 }
-/*
-int	main(void)
-{
-	char	*str;
-	size_t	size;
-	char	*ret;
-
-    str = "0123456789123456789";
-	size = 10;
-	ret = ft_substr(str, 7, 3);
-	printf("r=%s",ret);
-	free(ret);
-}
-*/

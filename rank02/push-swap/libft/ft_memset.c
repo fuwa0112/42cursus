@@ -3,39 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:42 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 23:21:37 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:17 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/19 19:06:45 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	*ft_memset(void *s, int c, size_t n)
 {
 	unsigned char	*ptr;
 
-	ptr = (unsigned char *)s;
-	while (n--)
-	{
-		ptr[n] = (unsigned char)c;
-	}
+	ptr = s;
+	while (n-- > 0)
+		*ptr++ = (unsigned char)c;
 	return (s);
 }
-/*
-int	main(void)
-{
-   int len;
-	const char	str[];
-	const char	ch;
-   char *ret;
-
-   str[] = "http://www.tutorialspoint.com";
-   ch = '.';
-   ret = ft_memset(str, ch, 3);
-   printf("String after |%c| is - |%s|\n", ch, ret);
-   
-	return(0);
-}
-*/

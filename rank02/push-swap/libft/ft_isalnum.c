@@ -3,30 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:41 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 22:46:29 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:06:47 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 16:29:00 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_isalnum(int c)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0'
+			&& c <= '9'))
+		return (1);
+	else
+		return (0);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-int	main (void)
-{
-	char	c1;
-	char	c2;
-
-	c1 = 'a';
-	c2 = '5';
-	printf("char: %c is alphanumeric or not: %d\n", c1, ft_isalnum(c1));
-	printf("char: %c is alphanumeric or not: %d\n", c2, ft_isalnum(c2));
-}
-*/

@@ -3,29 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:41 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/13 16:24:24 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:06:41 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/19 21:17:38 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s, 0, n);
-}
-/*
-int	main(void)
-{
-	char	*test;
+	unsigned char	*ptr;
 
-	test = malloc(256);
-	test[0] = 'a';
-	printf("String after is - |%s|\n", test);	
-	ft_bzero(test, 256);
-	printf("String after is - |%s|\n", test);
-	return (0);
+	ptr = s;
+	while (n-- > 0)
+		*ptr++ = 0;
 }
-*/

@@ -3,33 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:42 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/25 00:05:59 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:20 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 18:08:53 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*ptr;
-
-	ptr = (char *)s;
-	while (*ptr != (char)c && *ptr != '\0')
-		ptr++;
-	if (*ptr == (char)c)
-		return ((char *)ptr);
-	if (!c && *ptr == '\0')
-		return ((char *)ptr);
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
 	return (NULL);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", ft_strchr ("hello",'l'));
-	printf("%s\n", strchr ("hello",'o'));
-	return (0);
-}
-*/

@@ -3,66 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:42 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 23:27:50 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:08:23 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/19 18:29:52 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-int	ft_count_words(char const *s, char c)
+static int	word_count(const char *s, char c)
 {
-	int	wordcount;
+	int	count;
+	int	in_word;
 
-	wordcount = 0;
+	count = 0;
+	in_word = 0;
+	while (*s)
+	{
+		if (*s != c && in_word == 0)
+		{
+			in_word = 1;
+			count++;
+		}
+		else if (*s == c)
+			in_word = 0;
+		s++;
+	}
+	return (count);
+}
+
+static int	word_length(const char *s, char c)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] && s[len] != c)
+		len++;
+	return (len);
+}
+
+static char	*word_alloc(const char *s, char c)
+{
+	int		len;
+	char	*word;
+	int		i;
+
+	len = word_length(s, c);
+	word = (char *)malloc(sizeof(char) * (len + 1));
+	if (!word)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		word[i] = s[i];
+		i++;
+	}
+	word[len] = '\0';
+	return (word);
+}
+
+static int	populate_words(char **result, const char *s, char c)
+{
+	int		index;
+	char	*word;
+
+	index = 0;
 	while (*s)
 	{
 		if (*s != c)
 		{
-			wordcount++;
-			while (*s != c && *s)
-				s++;
+			word = word_alloc(s, c);
+			if (!word)
+			{
+				while (index > 0)
+					free(result[--index]);
+				return (0);
+			}
+			result[index++] = word;
+			s += word_length(s, c);
 		}
 		else
 			s++;
 	}
-	return (wordcount);
-}
-
-static int	ft_length_word(char const *s, char c, int i)
-{
-	int	lengthofword;
-
-	lengthofword = 0;
-	while (s[i] != c && s[i++])
-		lengthofword++;
-	return (lengthofword);
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		wordcount;
-	char	**parsedwords;
-	int		lengthofword;
-	int		j;
+	char	**result;
+	int		words;
 
-	i = 0;
-	j = -1;
-	wordcount = ft_count_words(s, c);
-	parsedwords = (char **)malloc((wordcount + 1) * sizeof(char *));
-	if (!parsedwords)
+	if (!s)
 		return (NULL);
-	while (++j < wordcount)
+	words = word_count(s, c);
+	result = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!result)
+		return (NULL);
+	if (!populate_words(result, s, c))
 	{
-		while (s[i] == c)
-			i++;
-		lengthofword = ft_length_word(s, c, i);
-		parsedwords[j] = ft_substr(s, i, lengthofword);
-		i += lengthofword;
+		free(result);
+		return (NULL);
 	}
-	parsedwords[j] = 0;
-	return (parsedwords);
+	result[words] = NULL;
+	return (result);
 }

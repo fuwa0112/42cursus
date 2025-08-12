@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:04:30 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/09 19:15:16 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/12 20:59:10 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,30 @@ void	rotate(int *array, int size, char *direction, char *list)
 		write(1, "rr", 2);
 	}
 	ft_putendl_fd(list, 1);
+}
+
+void	create_index(t_stacks *s)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		*new_a;
+
+	new_a = malloc(s->a_size * sizeof(int));
+	if (new_a == NULL)
+		free_and_exit_with_message(s, "Error\n", 1);
+	i = -1;
+	while (++i < s->a_size)
+	{
+		k = 0;
+		j = -1;
+		while (++j < s->a_size)
+			if (s->a[i] > s->a[j])
+				k++;
+		new_a[i] = k;
+	}
+	i = s->a_size;
+	while (i--)
+		s->a[i] = new_a[i];
+	free(new_a);
 }

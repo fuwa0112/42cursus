@@ -3,29 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huaydin <huaydin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 13:13:41 by huaydin           #+#    #+#             */
-/*   Updated: 2022/10/24 22:47:46 by huaydin          ###   ########.fr       */
+/*   Created: 2025/03/11 16:07:04 by thitoe            #+#    #+#             */
+/*   Updated: 2025/03/18 16:32:14 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_isprint(int c)
 {
-	return (c >= ' ' && c <= '~');
+	if (c >= ' ' && c <= '~')
+		return (1);
+	else
+		return (0);
 }
-/*
-#include <stdio.h>
-int	main (void)
-{
-	int	c1;
-	int	c2;
-
-	c1 = 'a';
-	c2 = '5';
-	printf("char: %c is printable or not: %d\n", c1, ft_isprint(c1));
-	printf("char: %c is printable or not: %d\n", c2, ft_isprint(c2));
-}
-*/
