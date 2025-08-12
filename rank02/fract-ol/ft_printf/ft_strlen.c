@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s.c                                                :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 12:09:47 by njard             #+#    #+#             */
-/*   Updated: 2024/12/02 13:23:01 by njard            ###   ########.fr       */
+/*   Created: 2025/06/15 21:20:37 by thitoe            #+#    #+#             */
+/*   Updated: 2025/06/18 00:00:19 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	s(char *chaine)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	count;
 
-	i = 0;
-	if (! chaine)
+	if (!s)
+		return (0);
+	count = 0;
+	while (*s != '\0')
 	{
-		chaine = "(null)";
+		count++;
+		s++;
 	}
-	while (chaine[i])
-	{
-		write(1, &chaine[i], 1);
-		i++;
-	}
-	return (i);
+	return (count);
 }

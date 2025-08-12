@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c.c                                                :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 12:00:52 by njard             #+#    #+#             */
-/*   Updated: 2024/12/02 13:23:43 by njard            ###   ########.fr       */
+/*   Created: 2025/06/15 21:20:15 by thitoe            #+#    #+#             */
+/*   Updated: 2025/06/18 00:00:13 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	c(char chara)
+unsigned long	ft_putchar(char c)
 {
-	write(1, &chara, 1);
-	return (1);
+	return (write(1, &c, 1));
+}
+
+ssize_t	ft_putchar_ssize(char c)
+{
+	return (write(1, &c, 1));
 }

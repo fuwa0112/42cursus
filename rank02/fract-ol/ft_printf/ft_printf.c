@@ -3,77 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 11:54:10 by njard             #+#    #+#             */
-/*   Updated: 2024/12/02 13:29:28 by njard            ###   ########.fr       */
+/*   Created: 2025/06/15 21:20:03 by thitoe            #+#    #+#             */
+/*   Updated: 2025/06/18 00:06:26 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	check(char letter, va_list args)
+static int	process_format(const char **format, va_list args)
 {
-	int	len;
+	int	count;
 
-	len = 0;
-	if (letter == 'c')
-		len = c((char)va_arg(args, int));
-	if (letter == 's')
-		len = s(va_arg(args, char *));
-	if (letter == 'd')
-		len = d_i(va_arg(args, int));
-	if (letter == 'i')
-		len = d_i(va_arg(args, int));
-	if (letter == 'u')
-		len = u(va_arg(args, unsigned int));
-	if (letter == 'x')
-		len = x(va_arg(args, unsigned int));
-	if (letter == 'X')
-		len = x_maj(va_arg(args, unsigned int));
-	if (letter == '%')
-		len = c((char) '%');
-	if (letter == 'p')
-		len = p(va_arg(args, unsigned long));
-	return (len);
+	count = 0;
+	if (**format == '%')
+	{
+		(*format)++;
+		if (**format)
+			count += ft_judgment(args, **format);
+		else
+			return (-1);
+	}
+	else
+	{
+		ft_putchar(**format);
+		count++;
+	}
+	(*format)++;
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int		len;
-	int		i;
+	int		count;
+	int		result;
 
-	len = 0;
-	i = 0;
+	if (format == NULL)
+		return (-1);
 	va_start(args, format);
-	while (format[i])
+	count = 0;
+	while (*format)
 	{
-		if (format[i] != '%')
+		result = process_format(&format, args);
+		if (result == -1)
 		{
-			c(format[i]);
-			len++;
+			va_end(args);
+			return (-1);
 		}
-		if (format[i] == '%')
-		{
-			i++;
-			len += check(format[i], args);
-		}
-		i++;
+		count += result;
 	}
 	va_end(args);
-	return (len);
+	return (count);
 }
-
-// int	main()
-// {
-// 	// char i[20] = "coucouc vca va ";
-// 	unsigned long	i;
-
-// 	i = 4654553;
-// 	int len;
-// 	len = ft_printf("%lx", i);
-// 	printf("\ntaille : %i\n", len);
-// 	len = printf("%lx", i);
-// 	printf("\n taille : %i", len);
-// }

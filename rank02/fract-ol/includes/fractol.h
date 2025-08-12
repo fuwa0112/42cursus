@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 10:19:29 by njard             #+#    #+#             */
-/*   Updated: 2025/01/27 15:55:31 by njard            ###   ########.fr       */
+/*   Created: 2025/08/12 22:25:06 by thitoe            #+#    #+#             */
+/*   Updated: 2025/08/13 00:25:03 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
+# include "../ft_printf/ft_printf.h"
 # include <math.h>
 # include <stdint.h>
 # include <stdlib.h>

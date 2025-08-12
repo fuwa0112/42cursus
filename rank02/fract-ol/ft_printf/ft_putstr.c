@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u.c                                                :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 13:16:40 by njard             #+#    #+#             */
-/*   Updated: 2024/12/02 12:54:03 by njard            ###   ########.fr       */
+/*   Created: 2025/06/15 21:20:30 by thitoe            #+#    #+#             */
+/*   Updated: 2025/06/18 00:00:18 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	u(unsigned int i)
+void	ft_putstr(const char *s, int fd)
 {
-	char	*a;
-	int		j;
+	int	i;
 
-	a = ft_itoa_u(i);
-	j = 0;
-	while (a[j])
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		write(1, &a[j], 1);
-		j++;
+		write(fd, &s[i], 1);
+		i++;
 	}
-	free(a);
-	return (j);
+}
+
+size_t	ft_write(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (write(1, "(null)", 6));
+	i = ft_strlen(str);
+	ft_putstr(str, 1);
+	return (i);
 }

@@ -4,6 +4,7 @@
 		"unistd.h": "c",
 		"limits.h": "c",
 		"stdlib.h": "c",
-		"random": "c"
+		"random": "c",
+		"fractol.h": "c"
 	}
 }

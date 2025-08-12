@@ -1,34 +1,36 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/18 00:00:49 by thitoe            #+#    #+#              #
+#    Updated: 2025/06/18 00:00:53 by thitoe           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
 NAME = libftprintf.a
 CC = cc
-FLAGS = -Wall -Wextra -Werror
-RM = rm -rf
-
-SRCS =	ft_printf.c\
-	c.c\
-	d_i.c\
-	s.c\
-	u.c\
-	x.c\
-	X.c\
-	ft_itoa.c\
-	ft_itoa_u.c\
-	p.c\
-
+CFLAG = -Wall -Wextra -Werror
+SRCS = ft_judgment.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c ft_strlen.c ft_write_pointer.c
 OBJS = $(SRCS:.c=.o)
+RM = rm
 
-$(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+all : $(NAME)
 
-.c.o:
-	@$(CC) $(FLAGS) -c $< -o $@ 
+$(NAME):	$(OBJS)
+		ar rcs $(NAME) $(OBJS)
 
-all: $(NAME)
+%.o: %.c
+		$(CC) $(CFLAG) -c $< -o $@
 
-clean: 
-	@$(RM) $(OBJS)
+clean:
+		$(RM) -f $(OBJS)
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) -f libftprintf.a
 
 re: fclean all
 

@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njard <njard@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 10:56:31 by njard             #+#    #+#             */
-/*   Updated: 2025/01/27 15:38:57 by njard            ###   ########.fr       */
+/*   Created: 2025/08/12 22:24:28 by thitoe            #+#    #+#             */
+/*   Updated: 2025/08/12 22:40:17 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/instructions.h"
+#include "../includes/fractol.h"
 
 void	instructions_display(void)
 {
-	ft_printf("%s%s%s", ONELINE_PART1, ONELINE_PART2, ONELINE_PART3);
-	ft_printf("%s%s%s", TWOLINE_PART1, TWOLINE_PART2, TWOLINE_PART3);
-	ft_printf("%s%s%s", THREELINE_PART1, THREELINE_PART2, THREELINE_PART3);
-	ft_printf("%s%s%s", FOURLINE_PART1, FOURLINE_PART2, FOURLINE_PART3);
-	ft_printf("%s%s%s", FIVELINE_PART1, FIVELINE_PART2, FIVELINE_PART3);
-	ft_printf("%s%s%s", FIVELINE2_PART1, FIVELINE2_PART2, FIVELINE2_PART3);
-	ft_printf("%s%s%s", SIXLINE_PART1, SIXLINE_PART2, SIXLINE_PART3);
-	ft_printf("%s%s%s", SEVENLINE_PART1, SEVENLINE_PART2, SEVENLINE_PART3);
-	ft_printf("%s%s%s", EIGHTLINE_PART1, EIGHTLINE_PART2, EIGHTLINE_PART3);
-	ft_printf("%s%s%s", TENLINE_PART1, TENLINE_PART2, TENLINE_PART3);
-	ft_printf("%s%s%s", TENLINE4_PART1, TENLINE4_PART2, TENLINE4_PART3);
-	ft_printf("%s%s%s", TENLINE1_PART1, TENLINE1_PART2, TENLINE1_PART3);
-	ft_printf("%s%s%s", TENLINE2_PART1, TENLINE2_PART2, TENLINE2_PART3);
-	ft_printf("%s%s%s", TENLINE3_PART1, TENLINE3_PART2, TENLINE3_PART3);
-	ft_printf("%s%s%s", ELEVENLINE_PART1, ELEVENLINE_PART2, ELEVENLINE_PART3);
+	ft_printf(
+		"------------------- Available fractals -------------------\n\n"
+		"  - Julia\n"
+		"  - Mandelbrot\n"
+		"  - Burning_ship\n\n"
+		);
+	ft_printf(
+		"Run the program like this in the terminal:\n\n"
+		"  ./fract-ol <fractal name> [real constant] [imaginary constant]\n\n"
+		"(The last two parameters are optional for Julia sets.)\n\n"
+		);
+	ft_printf(
+		"Controls while running:\n"
+		"  - Press 'i' to increase iterations.\n"
+		"  - Press 'q', 'w', 'a', 's' to adjust Julia set parameters.\n"
+		);
 }
