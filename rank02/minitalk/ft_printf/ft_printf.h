@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 21:20:10 by thitoe            #+#    #+#             */
-/*   Updated: 2025/06/18 00:00:16 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/15 05:30:49 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int				ft_judgment(va_list args, char format);
 unsigned long	ft_write_pointer(void *ptr);
 unsigned long	ft_write(const char *str);
 ssize_t			ft_write_hex(unsigned int num, int uppercase);
+int				ft_atoi(const char *str);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/18 00:00:49 by thitoe            #+#    #+#              #
-#    Updated: 2025/06/18 00:00:53 by thitoe           ###   ########.fr        #
+#    Updated: 2025/08/15 05:38:30 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = libftprintf.a
 CC = cc
 CFLAG = -Wall -Wextra -Werror
-SRCS = ft_judgment.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c ft_strlen.c ft_write_pointer.c
+SRCS = ft_judgment.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c ft_strlen.c ft_write_pointer.c ft_atoi.c
 OBJS = $(SRCS:.c=.o)
 RM = rm
 

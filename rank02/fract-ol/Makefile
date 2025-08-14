@@ -6,7 +6,7 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/12 22:41:21 by thitoe            #+#    #+#              #
-#    Updated: 2025/08/15 02:06:36 by thitoe           ###   ########.fr        #
+#    Updated: 2025/08/15 05:19:04 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ $(MINILIBX):
 
 $(NAME): $(OBJ) $(PRINTF) $(MINILIBX)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LDFLAGS) -o $(NAME)
-	@$(RM) srcs/*.o
 	@echo "$(NAME) built successfully!"
 
 %.o: %.c

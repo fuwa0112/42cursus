@@ -6,12 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:49:01 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/13 12:49:03 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/15 05:29:21 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
-#include "libft/libft.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
