@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:25:06 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/13 00:25:03 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/15 00:27:54 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct t_fractal
 	double	z_x;
 	double	z_y;
 	double	scale;
+	int		color_config;
 }			t_fractal;
 
 int			print_key(int key, t_fractal **fractal);
@@ -57,5 +58,6 @@ void		instructions_display(void);
 void		draw_burning_ship(t_fractal **fractal);
 void		menu(int argc, char **argv, t_fractal **fractal);
 void		init_fractal(t_fractal **fractal);
+void		handle_error(t_fractal *fractal);
 
 #endif

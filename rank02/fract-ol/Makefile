@@ -6,7 +6,7 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/12 22:41:21 by thitoe            #+#    #+#              #
-#    Updated: 2025/08/12 23:55:32 by thitoe           ###   ########.fr        #
+#    Updated: 2025/08/15 00:28:28 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = srcs/julia.c \
        srcs/instructions.c \
        srcs/mandelbrot.c \
        srcs/atoi.c \
-       srcs/init.c
+       srcs/init.c \
+	   srcs/menu.c
 
 PRINTF = ft_printf/libftprintf.a
 LIBS = $(PRINTF) mlx_linux/libmlx_Linux.a mlx_linux/libmlx.a
@@ -36,10 +37,9 @@ $(PRINTF):
 	@make -s -C ft_printf/
 
 $(NAME): $(OBJ) $(PRINTF)
-	@echo "🔨 Building $(NAME)..."
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LDFLAGS) -o $(NAME)
 	@$(RM) srcs/*.o
-	@echo "✅ $(NAME) built successfully!"
+	@echo "$(NAME) built successfully!"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:24:49 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/12 22:41:14 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/15 00:52:57 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	draw(t_fractal **fractal)
 
 void	key_pressure(t_fractal **fractal)
 {
-	mlx_hook((*fractal)->win, 6, KeyPressMask, mouse_hook, *fractal);
 	mlx_mouse_hook((*fractal)->win, mouse_hook, *fractal);
 	mlx_key_hook((*fractal)->win, key_action, fractal);
 	mlx_hook((*fractal)->win, 17, 0, on_destroy_event, fractal);
