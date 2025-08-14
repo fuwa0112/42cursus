@@ -6,14 +6,14 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/12 22:41:21 by thitoe            #+#    #+#              #
-#    Updated: 2025/08/15 00:28:28 by thitoe           ###   ########.fr        #
+#    Updated: 2025/08/15 02:06:36 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fract-ol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -Imlx_linux
-LDFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lXext -lX11 -lm
 RM = rm -rf
 
 SRCS = srcs/julia.c \
@@ -26,17 +26,22 @@ SRCS = srcs/julia.c \
        srcs/init.c \
 	   srcs/menu.c
 
-PRINTF = ft_printf/libftprintf.a
-LIBS = $(PRINTF) mlx_linux/libmlx_Linux.a mlx_linux/libmlx.a
 
 OBJ = $(SRCS:.c=.o)
 
-all: $(PRINTF) $(NAME)
+PRINTF = ft_printf/libftprintf.a
+MINILIBX = minilibx-linux/libmlx_Linux.a minilibx-linux/libmlx.a
+LIBS = $(PRINTF) $(MINILIBX)
+
+all: $(PRINTF) $(MINILIBX) $(NAME)
 
 $(PRINTF):
 	@make -s -C ft_printf/
 
-$(NAME): $(OBJ) $(PRINTF)
+$(MINILIBX):
+	@make -s -C minilibx-linux/
+
+$(NAME): $(OBJ) $(PRINTF) $(MINILIBX)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LDFLAGS) -o $(NAME)
 	@$(RM) srcs/*.o
 	@echo "$(NAME) built successfully!"
@@ -47,10 +52,11 @@ $(NAME): $(OBJ) $(PRINTF)
 clean:
 	@$(RM) srcs/*.o
 	@make -s -C ft_printf/ clean
+	@make -s -C minilibx-linux/ clean
 
 fclean: clean
 	@$(RM) $(NAME)
-	@make -s -C ft_printf/ fclean
+	@make -s -C  ft_printf/ fclean
 
 re: fclean all
 

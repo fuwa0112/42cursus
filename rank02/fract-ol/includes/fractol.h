@@ -6,15 +6,15 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:25:06 by thitoe            #+#    #+#             */
-/*   Updated: 2025/08/15 00:27:54 by thitoe           ###   ########.fr       */
+/*   Updated: 2025/08/15 02:05:32 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include "../mlx_linux/mlx.h"
-# include "../mlx_linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../ft_printf/ft_printf.h"
 # include <math.h>
 # include <stdint.h>
