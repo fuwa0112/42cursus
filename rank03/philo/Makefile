@@ -5,70 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/08/31 17:11:20 by thitoe            #+#    #+#              #
-#    Updated: 2025/08/31 17:11:21 by thitoe           ###   ########.fr        #
+#    Created: 2026/01/03 20:29:37 by thitoe            #+#    #+#              #
+#    Updated: 2026/01/24 22:01:19 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Colors
-RESET			= "\033[0m"
-BLACK    		= "\033[30m"    # Black
-RED      		= "\033[31m"    # Red
-GREEN    		= "\033[32m"    # Green
-YELLOW   		= "\033[33m"    # Yellow
-BLUE     		= "\033[34m"    # Blue
-MAGENTA  		= "\033[35m"    # Magenta
-CYAN     		= "\033[36m"    # Cyan
-WHITE    		= "\033[37m"    # White
+NAME = philo
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
 
-# Compiler
-NAME			= philo
-CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
-MKDIR			= mkdir -p
-RM				= rm -rf
-LINKER  	    = -lpthread
+SRCS = philo.c Src/parsing.c \
+	Src/utils.c Src/init.c \
+	Src/routine.c Src/monitor.c \
 
-# Includes
-INCLUDES_DIR 	= includes
-INCLUDES_FLAG 	= -I$(INCLUDES_DIR)
-INCLUDES		= $(wildcard $(INCLUDES_DIR)/*.h)
+OBJS = $(SRCS:.c=.o)
 
-# Sources
-SRCS_DIR		= srcs/
-SRC_FILES		= main.c \
-				  init.c \
-				  utils.c \
-				  str_utils.c \
-				  simulation.c \
+# -fsanitize=thread
 
-# Objects
-OBJS_DIR		= objs/
-OBJ_FILES		= $(SRC_FILES:.c=.o)
-OBJS			= $(addprefix $(OBJS_DIR), $(OBJ_FILES))
+all: $(NAME)
 
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-all : $(OBJS_DIR) $(NAME)
+clean:
+	rm -f $(OBJS)
 
-$(OBJS_DIR) :
-	@$(MKDIR) $(OBJS_DIR)
-
-$(NAME) : $(OBJS) Makefile
-	@echo $(GREEN) " - Compiling $(NAME)..." $(RESET)
-	@$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(NAME)
-	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
-
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCLUDES)
-	@$(CC) $(CFLAGS) $(INCLUDES_FLAG) -c $< -o $@	
-
-clean :
-	@$(RM) $(OBJS_DIR)
-	@echo $(RED) " - Cleaned!" $(RESET)
-
-fclean : clean
-	@$(RM) $(NAME)
-	@echo $(RED) " - Full Cleaned!" $(RESET)
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re

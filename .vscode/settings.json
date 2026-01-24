@@ -5,6 +5,9 @@
 		"limits.h": "c",
 		"stdlib.h": "c",
 		"random": "c",
-		"fractol.h": "c"
+		"fractol.h": "c",
+		"philo.h": "c",
+		"pthread.h": "c",
+		"types.h": "c"
 	}
 }
