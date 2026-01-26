@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/26 10:02:56 by thitoe            #+#    #+#             */
+/*   Updated: 2026/01/26 10:02:59 by thitoe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+t_token	*init_token(t_TokenType type, const char *value, size_t value_len,
+		int *status)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (set_status(status, 1), write(STDERR_FILENO,
+				"minishell: token creation\n", 26), NULL);
+	token->type = type;
+	token->value = ft_strndup(value, value_len);
+	if (!token->value)
+		return (set_status(status, 1), free(token), perror("strndup"), NULL);
+	token->next = NULL;
+	return (token);
+}
+
+t_TokenType	get_meta_type(const char *s)
+{
+	if (ft_strncmp(s, "<<", 2) == 0)
+		return (TOKEN_HEREDOC);
+	if (ft_strncmp(s, ">>", 2) == 0)
+		return (TOKEN_APPEND);
+	if (ft_strncmp(s, "&&", 2) == 0)
+		return (TOKEN_AND_IF);
+	if (ft_strncmp(s, "||", 2) == 0)
+		return (TOKEN_OR_IF);
+	if (ft_strncmp(s, "|", 1) == 0)
+		return (TOKEN_PIPE);
+	if (ft_strncmp(s, "<", 1) == 0)
+		return (TOKEN_REDIR_IN);
+	if (ft_strncmp(s, ">", 1) == 0)
+		return (TOKEN_REDIR_OUT);
+	if (ft_strncmp(s, "(", 1) == 0)
+		return (TOKEN_OPEN_PAREN);
+	if (ft_strncmp(s, ")", 1) == 0)
+		return (TOKEN_CLOSE_PAREN);
+	return (TOKEN_ERROR);
+}
+
+size_t	add_word(const char *input, t_token **list, int *status)
+{
+	t_token	*token;
+	size_t	len;
+	char	quote;
+
+	len = 0;
+	while (input[len] && !ft_isblank(input[len]) && !ismetachar(input[len]))
+	{
+		if (input[len] == '"' || input[len] == '\'')
+		{
+			quote = input[len];
+			len++;
+			while (input[len] && input[len] != quote)
+				len++;
+			if (input[len] == '\0')
+				return (set_status(status, 2), write(STDERR_FILENO,
+						"minishell: unclosed quote\n", 26), 0);
+		}
+		len++;
+	}
+	token = init_token(TOKEN_WORD, input, len, status);
+	if (token == NULL)
+		return (0);
+	append_token(list, token);
+	return (len);
+}
+
+size_t	add_metachar(const char *input, t_token **list, int *status)
+{
+	t_TokenType	type;
+	t_token		*token;
+	size_t		len;
+
+	type = get_meta_type(input);
+	if (type == TOKEN_ERROR)
+		return (set_status(status, 2), write(STDERR_FILENO,
+				"minishell: unknown token\n", 25), 0);
+	if (type == TOKEN_HEREDOC || type == TOKEN_APPEND || type == TOKEN_AND_IF
+		|| type == TOKEN_OR_IF)
+		len = 2;
+	else
+		len = 1;
+	token = init_token(type, input, len, status);
+	if (!token)
+		return (0);
+	append_token(list, token);
+	return (len);
+}
+
+t_token	*tokenize(const char *input, int *status)
+{
+	t_token	*tokens;
+	size_t	len;
+
+	tokens = NULL;
+	while (*input)
+	{
+		while (*input && ft_isblank(*input))
+			input++;
+		if (!*input)
+			break ;
+		if (ismetachar(*input))
+			len = add_metachar(input, &tokens, status);
+		else
+			len = add_word(input, &tokens, status);
+		if (len <= 0)
+			return (free_tokens(tokens), NULL);
+		input += len;
+	}
+	return (tokens);
+}
