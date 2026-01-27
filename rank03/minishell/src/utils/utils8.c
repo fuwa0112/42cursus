@@ -46,11 +46,11 @@ int	init_env(t_env **env_list, char **environ)
 	while (environ[i])
 	{
 		new_node = (t_env *)malloc(sizeof(t_env));
+		if (!new_node)
+			return (perror("malloc"), free_env(*env_list), -1);
 		new_node->next = NULL;
 		new_node->key = NULL;
 		new_node->value = NULL;
-		if (!new_node)
-			return (perror("malloc"), free_env(*env_list), -1);
 		new_node->key = ft_strndup(environ[i], ft_strchar(environ[i], '='));
 		new_node->value = ft_strdup(environ[i] + ft_strchar(environ[i], '=')
 				+ 1);

@@ -93,6 +93,7 @@ void	exec_exit(t_shell *shell, t_token *argv)
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
 			*shell->status = 1;
+			return ;
 		}
 		exit_code = ft_atol(argv->next->value);
 		exit((int)(exit_code & 0xFF));
