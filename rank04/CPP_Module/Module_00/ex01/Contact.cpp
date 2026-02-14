@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:25:08 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:25:09 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/14 23:04:15 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Contact.hpp"
 
 
-Contact::Contact(/* args */)
+Contact::Contact()
 {
 }
 
@@ -22,35 +22,49 @@ Contact::~Contact()
 {
 }
 
-std::string Contact::_getInput(std::string str) const {
-    std::string input = "";
-    bool        valid = false;
-    do
-    {
-        std::cout << str << std::flush;
-        std::getline(std::cin, input);
-        if (std::cin.good() && !input.empty())
-            valid = true;
-        else {
-            std::cin.clear();
-            std::cout << "Invalid input; please try again." << std::endl;
-        }
-    } while (!valid);
-    return (input);
+static bool isBlank(const std::string& s) {
+    if (s.empty())
+        return true;
+    for (size_t i = 0; i < s.size(); ++i) {
+        unsigned char c = static_cast<unsigned char>(s[i]);
+        if (!std::isspace(c))
+            return false;
+    }
+    return true;
 }
 
-void    Contact::init(void) {
-    std::cin.ignore();
-    this->_firstName = this->_getInput("Please enter you first name: ");
-    this->_lastName = this->_getInput("Please enter your last name: ");
-    this->_nickname = this->_getInput("Please enter your nickname: ");
-    this->_nickname = this->_getInput("Please enter your phone number: ");
-    this->_nickname = this->_getInput("Please enter your darkest secret: ");
-    std::cout << std::endl;
+bool Contact::_getInput(const std::string& prompt, std::string& out) const {
+    while (true) {
+        std::cout << prompt << std::flush;
+        if (!std::getline(std::cin, out))
+		{
+			std::cout << "\nEOF detected. ADDED canceled.\n";
+            return false;
+		}
+        if (!isBlank(out))
+            return true;
+        std::cout << "Invalid input; please try again." << std::endl;
+    }
+}
+
+void Contact::init(void) {
+    std::string tmp;
+    if (!_getInput("Please enter your first name: ", tmp)) return;
+    this->_firstName = tmp;
+    if (!_getInput("Please enter your last name: ", tmp)) return;
+    this->_lastName = tmp;
+    if (!_getInput("Please enter your nickname: ", tmp)) return;
+    this->_nickname = tmp;
+    if (!_getInput("Please enter your phone number: ", tmp)) return;
+    this->_phoneNumber = tmp;
+    if (!_getInput("Please enter your darkest secret: ", tmp)) return;
+    this->_darkestSecret = tmp;
+	std::cout << "Contact added successfully.\n";
+    std::cout << "----------------------------------" << std::endl;
 }
 
 
-std::string Contact::_printLen(std::string str) const {
+std::string Contact::_printLen(const std::string str) const {
     if (str.length() > 10)
         return str.substr(0, 9) + ".";
     return str;

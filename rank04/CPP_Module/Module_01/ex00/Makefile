@@ -6,54 +6,41 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/12 12:26:28 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/12 12:26:31 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/14 23:27:00 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Zombie
-	
-CC			= c++
-FLAGS		= -Wall -Wextra -Werror -std=c++98
-RM			= rm -rf
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+INCLUDE = -I./includes
+RM = rm -rf
 
-OBJDIR = .objFiles
+GENERAL = Zombie newZombie randomChump\
 
-FILES		= main Zombie newZombie randomChump
+NAME = ex00
+SRCS = $(addsuffix .cpp, $(GENERAL))\
+	   main.cpp
 
-SRC			= $(FILES:=.cpp)
-OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= Zombie.hpp
-
-#Colors:
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
-
-#Debug 
-ifeq ($(DEBUG), 1)
-   OPTS = -g
-endif
-
-.PHONY: all clean fclean re bonus norm
+OBJ_DIR = obj
+OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) $(OPTS) -o $(NAME)
-	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJDIR)/%.o: %.cpp $(HEADER)
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) $(OPTS) -c $< -o $@
+$(OBJ_DIR):
+	mkdir -p obj
+
+$(OBJ_DIR)/%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 clean:
-	@$(RM) $(OBJDIR) $(OBJ)
-	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

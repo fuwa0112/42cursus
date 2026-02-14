@@ -6,38 +6,32 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/12 12:24:38 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/12 12:24:41 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/14 23:24:20 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= megaphone
-	
-CC		= c++
-FLAGS	= -Wall -Wextra -Werror -std=c++98
-RM		= rm -rf
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+RM = rm -rf
+NAME = megaphone
 
-#Colors:
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
-
-.PHONY: all clean re
+SRCS = megaphone.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): 
-	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(FLAGS) megaphone.cpp -o $(NAME)
-	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.cpp
+	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+	$(RM) $(OBJS)
 
-fclean:
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+fclean: clean
+	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:25:15 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:25:17 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/14 22:30:13 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ private:
     std::string _darkestSecret;
     int         _index;
 
-    std::string _printLen(std::string str) const;
-    std::string _getInput(std::string str) const;
+    std::string _printLen(const std::string str) const;
+	bool _getInput(const std::string& prompt, std::string& out) const;
 
 public:
     Contact();
@@ -38,4 +38,4 @@ public:
     void    setIndex(int i);
 };
 
-#endif // CONTACT_HPP
+#endif
