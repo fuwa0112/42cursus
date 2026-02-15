@@ -1,30 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:47 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:34:48 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef BRAIN_HPP
-#define BRAIN_HPP
-
+#pragma once
+#ifndef __BRAIN_H__
+#define __BRAIN_H__
+#define GREEN "\033[0;32m"
+#define NOCOL "\033[0m"
 #include <iostream>
 
 class Brain
 {
-private:
-    std::string _ideas[100];
-
 public:
-    Brain( void );
-    ~Brain( void );
-    Brain( const Brain& src );
-    Brain& operator=( const Brain& rhs );
+    Brain(void);
+    Brain(Brain const &src);
+
+    virtual ~Brain(void);
+
+    Brain &operator=(Brain const &src);
+
+private:
+    static int const ideasNum = 100;
+    std::string ideas[ideasNum];
 };
- 
-#endif // BRAIN_HPP
+
+#endif

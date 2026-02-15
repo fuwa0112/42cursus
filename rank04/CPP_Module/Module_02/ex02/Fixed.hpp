@@ -5,88 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:30:54 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:30:55 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 23:10:21 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 23:10:26 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
-#include <iostream>
+#include <iosfwd>
 
 class Fixed
 {
-    /*
-        We can define class members static using static keyword. When we declare
-        a member of a class as static it means no matter how many objects of the class are created, 
-        there is only one copy of the static member.
-        A static member is shared by all objects of the class. All static data is initialized to zero
-        when the first object is created, if no other initialization is present. We can't put it in the 
-        class definition but it can be initialized outside the by redeclaring the static variable, 
-        using the scope resolution operator :: to identify which class it belongs to.
-    */
-private:
-    int                 _fixedPointValue;
-    static const int    _fractionalBits = 8;
-
 public:
-    Fixed( void );
-    Fixed( const int n );
-    Fixed( const float n );
-    Fixed( const Fixed &rhs );
-    Fixed& operator=( const Fixed &rhs );
-    ~Fixed();
+    Fixed(void);
+    Fixed(int const n);
+    Fixed(float const f);
+    Fixed(Fixed const &src);
+    ~Fixed(void);
 
-    int     getRawBits( void ) const;
-    void    setRawBits( int const raw );
+    Fixed &operator=(Fixed const &rhs);
 
-    /*
-        to convert a floating point to a fixed point we multiply the float number
-        with the base raised to the power of n (n the size of the fractional part)
-        to do the opposite we devide
-    */
-    float   toFloat( void ) const;
-    int     toInt( void ) const;
+    bool  operator>(Fixed const &rhs) const;
+    bool  operator<(Fixed const &rhs) const;
+    bool  operator>=(Fixed const &rhs) const;
+    bool  operator<=(Fixed const &rhs) const;
+    bool  operator==(Fixed const &rhs) const;
+    bool  operator!=(Fixed const &rhs) const;
 
-    bool    operator>( const Fixed &rhs ) const ;
-    bool    operator<( const Fixed &rhs ) const ;
-    bool    operator>=( const Fixed &rhs ) const ;
-    bool    operator<=( const Fixed &rhs ) const ;
-    bool    operator==( const Fixed &rhs ) const ;
-    bool    operator!=( const Fixed &rhs ) const ;
+    Fixed operator+(Fixed const &rhs) const;
+    Fixed operator-(Fixed const &rhs) const;
+    Fixed operator*(Fixed const &rhs) const;
+    Fixed operator/(Fixed const &rhs) const;
 
-    Fixed   operator+( const Fixed &rhs ) const ;
-    Fixed   operator-( const Fixed &rhs ) const ;
-    Fixed   operator*( const Fixed &rhs ) const ;
-    Fixed   operator/( const Fixed &rhs ) const ;
+    Fixed &operator++(void);
+    Fixed  operator++(int);
+    Fixed &operator--(void);
+    Fixed  operator--(int);
 
-    Fixed&  operator++( void ); // prefix
-    Fixed   operator++( int ); // postfix
-    Fixed&  operator--( void ); // prefix
-    Fixed   operator--( int ); // postfix
+    static Fixed       &min(Fixed &a, Fixed &b);
+    static Fixed const &min(Fixed const &a, Fixed const &b);
+    static Fixed       &max(Fixed &a, Fixed &b);
+    static Fixed const &max(Fixed const &a, Fixed const &b);
 
-    static Fixed& min( Fixed &a, Fixed &b );
-    static const Fixed& min( const Fixed &a, const Fixed &b );
-    static Fixed& max( Fixed &a, Fixed &b );
-    static const Fixed& max( const Fixed &a, const Fixed &b );
-    /*
-        Static Function Members
-        By declaring a function member as static, you make it independent of any
-         particular object of the class. A static member function can be called 
-         even if no objects of the class exist and the static functions are accessed
-         using only the class name and the scope resolution operator ::.
+    float toFloat(void) const;
+    int   toInt(void) const;
 
-        A static member function can only access static data member, other static
-        member functions and any other functions from outside the class.
+    int   getRawBits(void) const;
+    void  setRawBits(int const raw);
 
-        Static member functions have a class scope and they do not have access
-        to the this pointer of the class. You could use a static member function
-        to determine whether some objects of the class have been created or not.
-    */ 
-
+private:
+    int              _raw;
+    static const int _fractBits;
 };
 
-std::ostream & operator<<( std::ostream & o, Fixed const & i );
+std::ostream &operator<<(std::ostream &os, Fixed const &rhs);
 
-#endif  // FIXED_HPP
+#endif

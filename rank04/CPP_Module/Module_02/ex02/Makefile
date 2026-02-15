@@ -5,55 +5,42 @@
 #                                                     +:+ +:+         +:+      #
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/12 12:31:02 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/12 12:31:03 by thitoe           ###   ########.fr        #
+#    Created: 2026/02/15 23:07:57 by thitoe            #+#    #+#              #
+#    Updated: 2026/02/15 23:12:39 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Fixed
-	
-CC			= c++
-FLAGS		= -Wall -Wextra -Werror -std=c++98
-RM			= rm -rf
+NAME = FIixed02
+CC = clang++
+FLAGS = -Wall -Wextra -Werror
+NINETYEIGHT = -std=c++98 -pedantic
+SANITIZE = -g -fsanitize=address
 
-OBJDIR = .objFiles
+SRC_NAME =	Fixed.cpp \
+			main.cpp \
 
-FILES		= main Fixed
+INCLUDES = Fixed.hpp \
 
-SRC			= $(FILES:=.cpp)
-OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= Fixed.hpp 
-
-#Colors:
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
-
-#Debug 
-ifeq ($(DEBUG), 1)
-   OPTS = -g
-endif
-
-.PHONY: all clean fclean re
+OBJ_NAME = $(SRC_NAME:.cpp=.o)
+OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) $(OPTS) -o $(NAME)
-	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
+$(NAME): $(OBJ)
+	$(CC) $(STD) $(FLAGS) -o $(NAME) $(OBJ)
+	@echo "Compilation done."
 
-$(OBJDIR)/%.o: %.cpp $(HEADER)
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) $(OPTS) -c $< -o $@
+$(OBJ_DIR)%.o: %.cpp $(INCLUDES)
+	$(CC) $(STD) $(FLAGS) -c $< -I. -o $@
 
 clean:
-	@$(RM) $(OBJDIR) $(OBJ)
-	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
+	@rm -f $(OBJ)
+	@echo "Removed object files"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+	@rm -f $(NAME)
+	@echo "Removed binary files"
 
 re: fclean all
+
+.PHONY: all clean fclean re

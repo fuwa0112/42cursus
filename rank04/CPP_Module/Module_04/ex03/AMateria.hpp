@@ -1,36 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   AMateria.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:36:44 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:36:44 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef AMATERIA_HPP
-# define AMATERIA_HPP
-
-#include "ICharacter.hpp"
-# include <iostream>
+#ifndef __AMATERIA_HPP__
+#define __AMATERIA_HPP__
+#define GREEN "\033[0;32m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 class ICharacter;
 
 class AMateria
 {
-protected:
-    std::string _type;
 public:
-    AMateria();
-    AMateria(std::string const & type);
-    AMateria(AMateria const & src);
-    virtual ~AMateria();
+    AMateria(void);
+    AMateria(std::string const &type);
+    AMateria(AMateria const &src);
+    virtual ~AMateria(void);
 
-    std::string const & getType() const;
-    virtual AMateria*   clone() const = 0;
-    virtual void        use(ICharacter& target);
+    AMateria &operator=(AMateria const &src);
+
+    virtual AMateria *clone(void) const = 0;
+    virtual void use(ICharacter &target);
+
+    std::string const &getType(void) const;
+
+protected:
+    std::string type;
 };
 
-#endif // AMATERIA_HPP 
+#endif

@@ -1,31 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cure.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:36:59 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:36:59 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef CURE_HPP
-#define CURE_HPP
+#ifndef __CURE_HPP__
+#define __CURE_HPP__
+#define CYAN "\033[0;36m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 #include "AMateria.hpp"
 
-class Cure : public AMateria
+class Cure : virtual public AMateria
 {
-    public:
-        Cure();
-        ~Cure();
+public:
+    Cure(void);
+    Cure(Cure const &src);
 
-        Cure( Cure const & );
-        Cure& operator=( Cure const & );
+    ~Cure(void);
 
-        virtual AMateria*   clone() const;
-        virtual void        use(ICharacter& target);
+    Cure &operator=(Cure const &src);
+
+    AMateria *clone(void) const;
+    void use(ICharacter &target);
 };
 
-#endif // CURE_HPP
+#endif

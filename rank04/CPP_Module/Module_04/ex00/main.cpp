@@ -1,102 +1,123 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:00 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:34:01 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <iostream>
 
-/*
-
-C++ virtual function:
-- A C++ virtual function is a member function in the base class that you redefine
-    in a derived class. It is declared using the virtual keyword.
-- It is used to tell the compiler to perform dynamic linkage or late binding
-    on the function.
-- There is a necessity to use the single pointer to refer to all the objects of 
-    the different classes. So, we create the pointer to the base class that refers
-    to all the derived objects. But, when base class pointer contains the address of
-    the derived class object, always executes the base class function. This issue
-    can only be resolved by using the 'virtual' function.
-- A 'virtual' is a keyword preceding the normal declaration of a function.
-- When the function is made virtual, C++ determines which function is to be invoked
-    at the runtime based on the type of the object pointed by the base class pointer.
-
-*/
-
-/* virtual means the the linkage will be dynamic not static 
-    Explaination:
-    At the beginning, we had a statis relution of the function calls, It means that
-    during the compilation, (the compiler) we already will know which function to call.
-    and for this we use the type of the variable.
-    The only way for the compiler to know the behavior of my object is by knowing its type.
-    and we marked it as a Character type. and the compiler will assume that its a Character.
-    Therefore, it uses the Character version of the function.
-    It was a static link! means that during the compilation is determined it won't change later.
-    However, during the compilation let assume that we don't want it as a Warriror, but as a Wizard.
-    it may point on a Warrior once and on the Wizard once based on what the user input.
-    Thanks to the virtual, the resulotion of the function call wil be dynamic. and it will be
-    decided at runtime.
-
-    When we call the member function, during the execution becauese it's a function with 
-    a dynamic link, it will look for the actual type of the object. It will walk 
-    through the inheritance tree to find the actual type.
-
-    A virtual member function is called a method.
-    The definition of a method is a member function which resulotion will be dynamic.
-
-Rules of Virtual Function:
-
-    - Virtual functions must be members of some class.
-    - Virtual functions cannot be static members.
-    - They are accessed through object pointers.
-    - They can be a friend of another class.
-    - A virtual function must be defined in the base class, even though it is not used.
-    - The prototypes of a virtual function of the base class and all the derived classes 
-        must be identical. If the two functions with the same name but different prototypes,
-        C++ will consider them as the overloaded functions.
-    - We cannot have a virtual constructor, but we can have a virtual destructor
-
-*/
-
-#include "Dog.hpp"
+#include "Animal.hpp"
 #include "Cat.hpp"
-
+#include "Dog.hpp"
+#include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-int main( void )
+int main(void)
 {
-    std::cout << "--------------- Animal ---------------" << std::endl;
+    std::cout << "Animal default:" << std::endl;
+    const Animal *meta = new Animal();
+    std::cout << std::endl;
 
-    const Animal* meta = new Animal();
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    std::cout << "Animal copy:" << std::endl;
+    const Animal *copy = new Animal(*meta);
+    std::cout << std::endl;
 
-    std::cout << "J Type: " << j->getType() << " " << std::endl;
-    std::cout << "I Type: " << i->getType() << " " << std::endl;
-    i->makeSound();
+    std::cout << "Cats and dogs:" << std::endl;
+    const Animal *j = new Dog();
+    std::cout << std::endl;
+    const Animal *i = new Cat();
+    std::cout << std::endl;
+
+    std::cout << "Types:" << std::endl;
+    std::cout << "meta type is: " << meta->getType() << std::endl;
+    std::cout << "copy type is: " << copy->getType() << std::endl;
+    std::cout << "j type is: " << j->getType() << std::endl;
+    std::cout << "j type is: " << i->getType() << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Sounds:" << std::endl;
     meta->makeSound();
+    j->makeSound();
+    i->makeSound();
+    std::cout << std::endl;
 
-    delete  meta;
-    delete  j;
-    delete  i;
+    std::cout << "Destruct:" << std::endl;
+    delete meta;
+    std::cout << std::endl;
 
-    std::cout << std::endl << "------------- Wrong Animal -------------" << std::endl;
+    delete copy;
+    std::cout << std::endl;
 
+    delete j;
+    std::cout << std::endl;
+
+    delete i;
+    std::cout << std::endl;
+
+    std::cout << "-------------------------------------------------------" << std::endl;
+    std::cout << "Wrong animals:" << std::endl;
     const WrongAnimal *wrong = new WrongAnimal();
-    const WrongAnimal *wrongCat = new WrongCat();
 
-    std::cout << "Wrong Type: " << wrong->getType() << " " << std::endl;
-    std::cout << "WrongCat Type: " << wrongCat->getType() << " " << std::endl;
+    std::cout << std::endl;
+    const WrongAnimal *wrongCat = new WrongCat();
+    std::cout << std::endl;
+
+    std::cout << std::endl;
+    const WrongCat *rightCat = new WrongCat();
+    std::cout << std::endl;
+
+    std::cout << "Types:" << std::endl;
+    std::cout << "wrong type is: " << wrong->getType() << std::endl;
+    std::cout << "wrongCat type is: " << wrongCat->getType() << std::endl;
+    std::cout << "rightCat type is: " << rightCat->getType() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "Sounds:" << std::endl;
     wrong->makeSound();
     wrongCat->makeSound();
+    rightCat->makeSound();
+    std::cout << std::endl;
 
-    delete  wrong;
-    delete  wrongCat;
+    delete wrong;
+    std::cout << std::endl;
 
-    return 0;
+    delete wrongCat;
+    std::cout << std::endl;
+
+    delete rightCat;
+    std::cout << std::endl;
+
+    std::cout << "Completeness checks:" << std::endl;
+    const Animal *src = new Animal();
+    std::cout << std::endl;
+
+    const Animal *k = new Animal(*src);
+    std::cout << std::endl;
+
+    const Cat *l = new Cat();
+    std::cout << std::endl;
+
+    const Animal *m = new Cat(*l);
+    std::cout << std::endl;
+
+    const Dog *n = new Dog();
+    std::cout << std::endl;
+
+    const Animal *o = new Dog(*n);
+    std::cout << std::endl;
+
+    delete src;
+    std::cout << std::endl;
+
+    delete k;
+    std::cout << std::endl;
+
+    delete l;
+    std::cout << std::endl;
+
+    delete m;
+    std::cout << std::endl;
+
+    delete n;
+    std::cout << std::endl;
+
+    delete o;
+    std::cout << std::endl;
+
+    return (0);
 }

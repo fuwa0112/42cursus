@@ -1,33 +1,31 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:35:51 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:35:52 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#pragma once
+#ifndef __CAT_H__
+#define __CAT_H__
+#define PURPLE "\033[0;35m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
-#ifndef CAT_HPP
-# define CAT_HPP
+#include "Animal.hpp"
+#include "Brain.hpp"
 
-#include "AAnimal.hpp"
-
-class Cat : public AAnimal
+class Cat : virtual public Animal
 {
-private:
-    Brain   *_brain;
-
 public:
-    Cat( void );
-    ~Cat( void );
+    Cat(void);
+    Cat(Cat const &src);
 
-    Cat( const Cat& src );
-    Cat& operator=( const Cat& src );
+    virtual ~Cat(void);
 
-    void   makeSound( void ) const;
+    Cat &operator=(Cat const &src);
+
+    std::string getType(void) const;
+    Brain *getBrain(void) const;
+
+    void makeSound(void) const;
+
+private:
+    std::string type;
+    Brain *brain;
 };
 
-#endif // CAT_HPP
+#endif

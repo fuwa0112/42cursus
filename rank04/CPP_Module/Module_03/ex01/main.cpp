@@ -1,26 +1,36 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:32:01 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:32:01 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ScavTrap.hpp"
+#include <iostream>
 
-int main( void )
+int main(void)
 {
-    ScavTrap ash( "Ash" );
-    ScavTrap ash2( ash );
+    std::cout << "ScavTrap with default constructor:" << std::endl;
+    ScavTrap defaultTrap;
+    std::cout << defaultTrap << std::endl;
 
-    ash.attack( "the air" );
-    ash.takeDamage( 10 );
-    ash.beRepaired( 10 );
-    ash.guardGate();
+    std::cout << "ScavTrap with name:" << std::endl;
+    ScavTrap *namedTrap = new ScavTrap("Scavvy");
+    std::cout << *namedTrap << std::endl;
 
-    return EXIT_SUCCESS;
+    std::cout << "Copycat ScavTrap (assignment operator):" << std::endl;
+    ScavTrap copyTrap;
+    copyTrap = *namedTrap;
+    std::cout << copyTrap << std::endl;
+
+    std::cout << "Copycat ScavTrap (copy constructor):" << std::endl;
+    ScavTrap copyTrap2(copyTrap);
+    std::cout << copyTrap2 << std::endl;
+
+    defaultTrap.attack(namedTrap->getName());
+    namedTrap->takeDamage(defaultTrap.getAttackDamage());
+    std::cout << *namedTrap << std::endl;
+
+    namedTrap->beRepaired(10);
+    std::cout << *namedTrap << std::endl;
+
+    namedTrap->guardGate();
+    std::cout << std::endl;
+
+    delete namedTrap;
+    std::cout << std::endl;
+    return 0;
 }

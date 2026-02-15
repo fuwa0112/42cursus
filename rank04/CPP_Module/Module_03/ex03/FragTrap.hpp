@@ -1,30 +1,33 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:17 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:17 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef FRAGTRAP_HPP
-#define FRAGTRAP_HPP
-
+#pragma once
+#ifndef __FRAGTRAP_H__
+#define __FRAGTRAP_H__
+#include <iostream>
 #include "ClapTrap.hpp"
+#define BLUE "\033[1;34m"
+#define NOCOL "\033[0m"
 
 class FragTrap : virtual public ClapTrap
 {
-private:
-    FragTrap();
-
 public:
+    FragTrap(void);
     FragTrap(std::string name);
-    ~FragTrap();
+    FragTrap(const FragTrap &src);
 
-    void    highFive( void );
+    ~FragTrap(void);
+
+    FragTrap &operator=(FragTrap const &src);
+
+    void highFivesGuys(void) const;
+
+protected:
+    static int const HitpointsValue = 100;
+    static int const EnergyPointsValue = 100;
+    static int const AttackDamageValue = 30;
+
+    using ClapTrap::AttackDamage;
+    using ClapTrap::EnergyPoints;
+    using ClapTrap::Hitpoints;
+    using ClapTrap::Name;
 };
 
-#endif // FRAGTRAP_HPP
+#endif

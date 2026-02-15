@@ -1,29 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   WrongCat.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:22 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:34:23 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef WRONGCAT_HPP
-#define WRONGCAT_HPP
+#pragma once
+#ifndef __WRONGCAT_H__
+#define __WRONGCAT_H__
+#define YELLOW "\033[0;33m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 #include "WrongAnimal.hpp"
 
-class WrongCat : public WrongAnimal
+class WrongCat : virtual public WrongAnimal
 {
-private:
-
 public:
-    WrongCat( void );
-    ~WrongCat( void );
+    WrongCat(void);
+    WrongCat(WrongCat const &src);
 
-    void   makeSound( void ) const;
+    ~WrongCat(void);
+
+    WrongCat &operator=(WrongCat const &src);
+
+    std::string getType(void) const;
+    void makeSound(void) const;
+
+private:
+    std::string type;
 };
 
-#endif // WRONGCAT_HPP
+#endif

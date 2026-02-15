@@ -5,41 +5,44 @@
 #                                                     +:+ +:+         +:+      #
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/12 12:26:28 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/14 23:27:00 by thitoe           ###   ########.fr        #
+#    Created: 2026/02/15 06:21:59 by thitoe            #+#    #+#              #
+#    Updated: 2026/02/15 06:22:00 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-INCLUDE = -I./includes
-RM = rm -rf
+NAME = brainz
+CC = clang++
+STD = -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror
+SANITIZE = -g -fsanitize=address
 
-GENERAL = Zombie newZombie randomChump\
+SRC_NAME =	main.cpp \
+			Zombie.cpp \
+			newZombie.cpp \
+			randomChump.cpp \
 
-NAME = ex00
-SRCS = $(addsuffix .cpp, $(GENERAL))\
-	   main.cpp
+INCLUDES = Zombie.hpp \
 
-OBJ_DIR = obj
-OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
+OBJ_NAME = $(SRC_NAME:.cpp=.o)
+OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
+
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(STD) $(FLAGS) -o $(NAME) $(OBJ)
+	@echo "Compilation done."
 
-$(OBJ_DIR):
-	mkdir -p obj
-
-$(OBJ_DIR)/%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+$(OBJ_DIR)%.o: %.cpp $(INCLUDES)
+	$(CC) $(STD) $(FLAGS) -c $< -I. -o $@
 
 clean:
-	$(RM) $(OBJ_DIR)
+	@rm -f $(OBJ)
+	@echo "Removed object files"
 
 fclean: clean
-	$(RM) $(NAME)
+	@rm -f $(NAME)
+	@echo "Removed binary files"
 
 re: fclean all
 

@@ -1,48 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Ice.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:37:02 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:37:03 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Ice.hpp"
+#include "ICharacter.hpp"
 
-Ice::Ice() : AMateria("ice")
+Ice::Ice(void)
 {
-    // std::cout << "* Ice: materia is created *" << std::endl;
+    this->type = "ice";
+    std::cout << PURPLE << "Ice default constructor" << NOCOL << std::endl;
 }
 
-Ice::Ice( Ice const & src ) : AMateria("ice")
+Ice::~Ice(void)
 {
+    std::cout << PURPLE << "Ice destructor" << NOCOL << std::endl;
+}
+
+Ice::Ice(Ice const &src)
+{
+    this->type = "ice";
     *this = src;
-    // std::cout << "* Ice: materia is copied *" << std::endl;
+    std::cout << PURPLE << "Ice copy constructor called" << NOCOL << std::endl;
 }
 
-Ice&   Ice::operator=( const Ice& rhs ) {
-    if (this != &rhs)
-    {
-        this->_type = rhs._type;
-    }
+Ice &Ice::operator=(const Ice &src)
+{
+    std::cout << PURPLE << "Ice assignation operator called (" << src.getType() << ")" << NOCOL << std::endl;
     return *this;
 }
 
-Ice::~Ice()
+AMateria *Ice::clone(void) const
 {
-    // std::cout << "* Ice: ice is destroyed *" << std::endl;
+    std::cout << PURPLE << "Cloning a new Ice Materia" << NOCOL << std::endl;
+    return new Ice();
 }
 
-AMateria* Ice::clone() const
+void Ice::use(ICharacter &target)
 {
-    return (new Ice(*this));
+    std::cout << PURPLE << "* shoots an ice bolt at " << (target.getName().length() ? target.getName() : "Unnamed") << " *" << NOCOL << std::endl;
 }
-
-void    Ice::use( ICharacter& target )
-{
-    std::cout << "I shoots an ice bolt at " << target.getName() << std::endl;
-}
-

@@ -1,31 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:33 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:34 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
-
+#pragma once
+#ifndef __SCAVTRAP_H__
+#define __SCAVTRAP_H__
+#include <iostream>
 #include "ClapTrap.hpp"
+#define YELLOW "\033[1;33m"
+#define NOCOL "\033[0m"
 
 class ScavTrap : virtual public ClapTrap
 {
-private:
-    ScavTrap();
-
 public:
-    ScavTrap( std::string name );
-    ~ScavTrap();
+    ScavTrap(void);
+    ScavTrap(std::string name);
+    ScavTrap(const ScavTrap &src);
 
-    void    attack(std::string const& target);
-    void    guardGate();
+    ~ScavTrap(void);
+
+    ScavTrap &operator=(ScavTrap const &src);
+
+    void attack(std::string const &target);
+    void takeDamage(unsigned int amount);
+    void beRepaired(unsigned int amount);
+
+    void guardGate(void) const;
+
+protected:
+    static int const HitpointsValue = 100;
+    static int const EnergyPointsValue = 50;
+    static int const AttackDamageValue = 20;
+
+    using ClapTrap::AttackDamage;
+    using ClapTrap::EnergyPoints;
+    using ClapTrap::Hitpoints;
+    using ClapTrap::Name;
 };
 
-#endif // SCAVTRAP_HPP
+#endif

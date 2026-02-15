@@ -5,24 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:28:52 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:28:53 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 06:22:38 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 06:22:39 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
 
-Weapon::Weapon( std::string type) {
-    this->setType(type);
+#include <iomanip>
+#include <iostream>
+
+Weapon::Weapon(void)
+{
+}
+Weapon::Weapon(std::string type) : _type(type)
+{
 }
 
-Weapon::~Weapon() {
+Weapon::~Weapon(void)
+{
 }
 
-const  std::string& Weapon::getType( void ) {
-    return this->type;
+std::string const &Weapon::getType(void) const
+{
+    const std::string &typeRef = this->_type;
+    return typeRef;
 }
 
-void                Weapon::setType( std::string newType ) {
-    this->type = newType;
+void Weapon::setType(std::string type)
+{
+    this->_type = type;
 }

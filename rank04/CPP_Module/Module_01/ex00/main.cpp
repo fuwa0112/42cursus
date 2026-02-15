@@ -5,31 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:26:25 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:26:26 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 06:21:56 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 06:21:57 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-int main( void ) {
-    std::string name;
+Zombie *newZombie(std::string name);
+void randomChump(std::string name);
 
-    std::cout << "Creating zombie on the stack." << std::endl;
-    std::cout << "Zombie name: " << std::flush;
-    std::cin >> name;
+int main(void)
+{
+    Zombie newZombieStack = Zombie("Stacky");
+    newZombieStack.announce();
 
-    Zombie zombi1(name);
+    Zombie* newZombieHeap = newZombie("Heapy");
+    newZombieHeap->announce();
+
+    randomChump("Stacky 2");
+
+    Zombie* newZombieHeap2 = newZombie("Heapy 2");
+    newZombieHeap2->announce();
     
-    std::cout << "Creating zombie on the heap." << std::endl;
-    std::cout << "Zombie name: " << std::flush;
-    std::cin >> name;
+    std::cout << "End of program" << std::endl;
 
-    Zombie *zombi2 = newZombie(name);
-    zombi2->announce();
-    delete zombi2;
-
-    std::cout << "Calling randomChump()." << std::endl;
-    randomChump("randi");
-    return 0;
+    delete newZombieHeap;
+    delete newZombieHeap2;
+    return (0);
 }

@@ -5,24 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:29:34 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:29:35 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 06:22:58 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 21:46:44 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "Harl.hpp"
 
-int main( void ) {
+int main(void)
+{
+    Harl harl;
+    harl.complain("DEBUG");
+    std::cout << std::endl;
 
-    std::string input;
-    Harl        harl;
+    harl.complain("INFO");
+    std::cout << std::endl;
 
-    do
-    {
-        std::cout << "Enter a level: ";
-        std::cin >> input;
-        harl.complain(input);
-    } while (input.compare("exit"));
+    harl.complain("ERROR");
+    std::cout << std::endl;
 
-    return EXIT_SUCCESS;
+    harl.complain("WARNING");
+    std::cout << std::endl;
+
+    harl.complain("WRONG");
+    std::cout << std::endl;
+    return (0);
 }

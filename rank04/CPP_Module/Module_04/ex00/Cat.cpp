@@ -1,28 +1,34 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:45 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:46 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Cat.hpp"
 
-Cat::Cat( void ) : Animal("Cat")
+Cat::Cat(void) : type("Cat")
 {
-    std::cout << this->_type << " constructor called" << std::endl;
+    std::cout << PURPLE << "Cat default constructor called" << NOCOL << std::endl;
 }
 
-Cat::~Cat( void )
+Cat::Cat(Cat const &src)
 {
-    std::cout << this->_type << " destructor called" << std::endl;
+    *this = src;
+    std::cout << PURPLE << "Cat copy constructor called" << NOCOL << std::endl;
 }
 
-void    Cat::makeSound( void ) const
+Cat::~Cat(void)
 {
-    std::cout << "Meow!" << std::endl;
+    std::cout << PURPLE << "Cat destructor called" << NOCOL << std::endl;
+}
+
+Cat &Cat::operator=(const Cat &src)
+{
+    this->type = src.getType();
+    std::cout << PURPLE << "Cat assignation operator called" << NOCOL << std::endl;
+    return *this;
+}
+
+std::string Cat::getType(void) const
+{
+    return this->type;
+}
+
+void Cat::makeSound(void) const
+{
+    std::cout << PURPLE << "Miao miao miao" << NOCOL << std::endl;
 }

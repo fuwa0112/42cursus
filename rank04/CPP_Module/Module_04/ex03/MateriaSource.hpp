@@ -1,37 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:39:18 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:39:19 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef __MATERIASOURCE_HPP__
+#define __MATERIASOURCE_HPP__
+#define RED "\033[31;1m"
+#define NOCOL "\033[0m"
 
-#ifndef MATERIASOURCE_HPP
-#define MATERIASOURCE_HPP
-
-#include "AMateria.hpp"
 #include "IMateriaSource.hpp"
 
-class MateriaSource : public IMateriaSource
+class AMateria;
+
+class MateriaSource : virtual public IMateriaSource
 {
-    private:
-        AMateria*       materias[4];
+public:
+    MateriaSource(void);
+    MateriaSource(MateriaSource const &src);
 
-    public:
-        MateriaSource();
-        ~MateriaSource();
+    ~MateriaSource(void);
 
-        MateriaSource( MateriaSource const & );
-        MateriaSource&  operator=( MateriaSource const & );
+    MateriaSource &operator=(MateriaSource const &src);
 
-        AMateria*       getMateria( std::string const & type );
-        AMateria*       createMateria( std::string const & type );
-        void            learnMateria( AMateria* );
+    void learnMateria(AMateria *);
+    AMateria *createMateria(std::string const &type);
+
+private:
+    static int const materiaNum = 4;
+    AMateria *materias[materiaNum];
 };
 
-
-#endif // MATERIASOURCE_HPP
+#endif

@@ -1,52 +1,34 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:39 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:39 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Animal.hpp"
 
-Animal::Animal( void ) : _type( "Animel" ) {
-    std::cout << this->_type << " constructor called" << std::endl;
+Animal::Animal(void) : type("Animal")
+{
+    std::cout << CYAN << "Animal default constructor called" << NOCOL << std::endl;
 }
 
-Animal::Animal( std::string type ) : _type( type )
+Animal::Animal(Animal const &src)
 {
-    std::cout << "Animal " << this->_type << " constructor called" << std::endl;
-}
-
-Animal::~Animal( void )
-{
-    std::cout << "Animal destructor called" << std::endl;
-}
-
-Animal::Animal( const Animal& src )
-{
-    std::cout << "Animal copy constructor called" << std::endl;
     *this = src;
+    std::cout << CYAN << "Animal copy constructor called" << NOCOL << std::endl;
 }
 
-Animal& Animal::operator=( const Animal& rhs )
+Animal::~Animal(void)
 {
-    std::cout << "Animal assignment operator called" << std::endl;
-    if ( this != &rhs ) {
-        this->_type = rhs._type;
-    }
+    std::cout << CYAN << "Animal destructor called" << NOCOL << std::endl;
+}
+
+Animal &Animal::operator=(const Animal &src)
+{
+    this->type = src.getType();
+    std::cout << CYAN << "Animal assignation operator called" << NOCOL << std::endl;
     return *this;
 }
 
-void Animal::makeSound( void ) const
+std::string Animal::getType(void) const
 {
-    std::cout << "Animal makeSound called" << std::endl;
+    return this->type;
 }
 
-std::string    Animal::getType( void ) const
+void Animal::makeSound(void) const
 {
-    return this->_type;
+    std::cout << CYAN << "I'm a generic animal, I don't have a sound :(" << NOCOL << std::endl;
 }

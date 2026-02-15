@@ -1,68 +1,66 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   MateriaSource.cpp                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:39:14 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:39:15 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "MateriaSource.hpp"
+#include "Ice.hpp"
+#include "Cure.hpp"
 
-MateriaSource::MateriaSource()
+MateriaSource::MateriaSource(void)
 {
-    for (int i = 0; i < 4; i++)
-        materias[i] = NULL;
+    std::cout << RED << "MateriaSource default constructor" << NOCOL << std::endl;
 }
 
-MateriaSource::~MateriaSource()
-{
-    for (int i = 0; i < 4; i++)
-        if (materias[i])
-            delete materias[i];
-}
-
-MateriaSource::MateriaSource(MateriaSource const & src)
+MateriaSource::MateriaSource(MateriaSource const &src)
 {
     *this = src;
+    std::cout << RED << "MateriaSource copy constructor called" << NOCOL << std::endl;
 }
 
-MateriaSource& MateriaSource::operator=( MateriaSource const & rhs )
+MateriaSource::~MateriaSource(void)
 {
-    if (this != &rhs)
-    {
-        for (int i = 0; i < 4; i++)
-            materias[i] = rhs.materias[i];
-    }
+    std::cout << RED << "MateriaSource destructor" << NOCOL << std::endl;
+    for (int i = 0; i < this->materiaNum; i++)
+        delete this->materias[i];
+}
+
+MateriaSource &MateriaSource::operator=(const MateriaSource &src)
+{
+    for (int i = 0; i < this->materiaNum; i++)
+        this->materias[i] = src.materias[i];
+    std::cout << RED << "MateriaSource assignation operator called" << NOCOL << std::endl;
     return *this;
 }
 
-AMateria* MateriaSource::getMateria( std::string const & type )
+void MateriaSource::learnMateria(AMateria *src)
 {
-    for (int i = 0; i < 4; i++)
-        if (materias[i] && materias[i]->getType() == type)
-            return materias[i];
-    return NULL;
-}
+    if (!src)
+    {
+        std::cout << RED << "MateriaSource tried to learn invalid Materia" << NOCOL << std::endl;
+        return;
+    }
 
-void    MateriaSource::learnMateria( AMateria* m )
-{
-    for (int i = 0; i < 4; i++)
-        if (materias[i] == NULL)
+    int i = 0;
+    for (; i < this->materiaNum; i++)
+    {
+        if (!this->materias[i])
         {
-            materias[i] = m;
-            // std::cout << "MateriaSource learned " << m->getType() << std::endl;
+            this->materias[i] = src;
+            std::cout << RED << "MateriaSource learnt new Materia of type '" << src->getType() << "' at index " << i << NOCOL << std::endl;
             return;
         }
-    // std::cout << "MateriaSource can't learn " << m->getType() << std::endl;
+    }
+
+    std::cout << RED << "No slot available to learn new Materia of type '" << src->getType() << "'" << NOCOL << std::endl;
+    delete src;
 }
 
-AMateria*   MateriaSource::createMateria( std::string const& type ) {
-    for ( int i = 0; i < 4; i++ )
-        if ( materias[i] && materias[i]->getType() == type )
-            return materias[i]->clone();
-    return NULL;
+AMateria *MateriaSource::createMateria(std::string const &type)
+{
+    for (int i = 0; i < this->materiaNum; i++)
+    {
+        if (this->materias[i] && (this->materias[i]->getType() == type))
+        {
+            std::cout << RED << "MateriaSource createMateria(): created Materia of type '" << type << "'" << NOCOL << std::endl;
+            return this->materias[i]->clone();
+        }
+    }
+    std::cout << RED << "MateriaSource createMateria(): impossible to create Materia" << NOCOL << std::endl;
+    return 0;
 }

@@ -1,51 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:59 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:35:00 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Dog.hpp"
 
-Dog::Dog( void ) : Animal( "Dog" )
+Dog::Dog(void) : type("Dog")
 {
-    std::cout << this->_type << " constructor called" << std::endl;
-    try {
-        this->_brain = new Brain();
-    }
-    catch (const std::bad_alloc& e) {
-        std::cout << "Memory Allocation is failed : " << e.what() << std::endl;
-    }
+    this->brain = new Brain();
+    std::cout << BLUE << "Dog default constructor called" << NOCOL << std::endl;
 }
 
-Dog::~Dog( void )
+Dog::Dog(Dog const &src)
 {
-    delete  this->_brain;
-    std::cout << this->_type << " destructor called" << std::endl;
-}
-
-void    Dog::makeSound( void ) const
-{
-    std::cout << "Woof!" << std::endl;
-}
-
-Dog::Dog( const Dog& src )
-{
+    this->brain = new Brain();
     *this = src;
+    std::cout << BLUE << "Dog copy constructor called" << NOCOL << std::endl;
 }
 
-Dog& Dog::operator=( const Dog& src )
+Dog::~Dog(void)
 {
-    std::cout << "<Dog.cpp:32> Dog copy called." << std::endl;
-    if (this != &src)
-    {
-        this->_type = src._type;
-        this->_brain = new Brain( *src._brain );
-    }
+    delete this->brain;
+    std::cout << BLUE << "Dog destructor called" << NOCOL << std::endl;
+}
+
+Dog &Dog::operator=(const Dog &src)
+{
+    this->type = src.getType();
+    *(this->brain) = *(src.brain);
+    std::cout << BLUE << "Dog assignation operator called" << NOCOL << std::endl;
     return *this;
+}
+
+std::string Dog::getType(void) const
+{
+    return this->type;
+}
+
+Brain *Dog::getBrain(void) const
+{
+    return this->brain;
+}
+
+void Dog::makeSound(void) const
+{
+    std::cout << BLUE << "Bau bau bau" << NOCOL << std::endl;
 }

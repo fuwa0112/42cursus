@@ -1,50 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:35:47 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:35:48 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Cat.hpp"
 
-Cat::Cat( void ) : AAnimal("Cat") {
-    std::cout << this->_type << " constructor called" << std::endl;
-    try {
-        this->_brain = new Brain();
-    }
-    catch (const std::bad_alloc& e) {
-        std::cout << "Memory Allocation is failed : " << e.what() << std::endl;
-    }
+Cat::Cat(void) : type("Cat")
+{
+    this->brain = new Brain();
+    std::cout << PURPLE << "Cat default constructor called" << NOCOL << std::endl;
 }
 
-Cat::~Cat( void )
+Cat::Cat(Cat const &src)
 {
-    std::cout << this->_type << " destructor called" << std::endl;
-    delete  this->_brain;
-}
-
-void    Cat::makeSound( void ) const
-{
-    std::cout << "Meow!" << std::endl;
-}
-
-Cat::Cat( const Cat& src )
-{
+    this->brain = new Brain();
     *this = src;
+    std::cout << PURPLE << "Cat copy constructor called" << NOCOL << std::endl;
 }
 
-Cat& Cat::operator=( const Cat& src )
+Cat::~Cat(void)
 {
-    std::cout << "<Cat.cpp:32> Cat copy called." << std::endl;
-    if (this != &src)
-    {
-        this->_type = src._type;
-        this->_brain = new Brain( *src._brain );
-    }
+    delete this->brain;
+    std::cout << PURPLE << "Cat destructor called" << NOCOL << std::endl;
+}
+
+Cat &Cat::operator=(Cat const &src)
+{
+    this->type = src.getType();
+    *(this->brain) = *(src.brain);
+    std::cout << PURPLE << "Cat assignation operator called" << NOCOL << std::endl;
     return *this;
+}
+
+std::string Cat::getType(void) const
+{
+    return this->type;
+}
+
+Brain *Cat::getBrain(void) const
+{
+    return this->brain;
+}
+
+void Cat::makeSound(void) const
+{
+    std::cout << PURPLE << "Miao miao miao" << NOCOL << std::endl;
 }

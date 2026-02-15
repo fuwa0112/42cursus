@@ -1,39 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Brain.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:43 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:34:44 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Brain.hpp"
 
-Brain::Brain( void )
+Brain::Brain(void)
 {
-    std::cout << "Brain created." << std::endl;
+    std::cout << GREEN << "Brain default constructor called" << NOCOL << std::endl;
 }
 
-Brain::~Brain( void )
+Brain::Brain(Brain const &src)
 {
-    std::cout << "Brain destroyed." << std::endl;
-}
-
-Brain::Brain( const Brain& src )
-{
+    std::cout << GREEN << "Brain copy constructor called" << NOCOL << std::endl;
     *this = src;
 }
 
-Brain& Brain::operator=( const Brain& src )
+Brain::~Brain(void)
 {
-    std::cout << "<Brain.cpp:32> Brain copy called." << std::endl;
-    if ( this != &src ) {
-        for ( int i = 0; i < 100; i++ ) {
-            this->_ideas[i] = src._ideas[i];
-        }
-    }
+    std::cout << GREEN << "Brain destructor called" << NOCOL << std::endl;
+}
+
+Brain &Brain::operator=(const Brain &src)
+{
+    std::cout << GREEN << "Brain assignation operator called" << NOCOL << std::endl;
+    for (int i = 0; i < this->ideasNum; i++)
+        this->ideas[i] = src.ideas[i];
     return *this;
 }

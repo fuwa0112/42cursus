@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:30:26 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:30:27 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 22:12:50 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 22:38:31 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "Fixed.hpp"
 
-int main( void )
+int main(void)
 {
     Fixed a;
     Fixed b( a );

@@ -1,32 +1,39 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:10 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:11 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef DIAMONDTRAP_HPP
-#define DIAMONDTRAP_HPP
-
+#pragma once
+#ifndef __DIAMONDTRAP_H__
+#define __DIAMONDTRAP_H__
+#include <iostream>
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
+#define PURPLE "\033[0;35m"
+#define NOCOL "\033[0m"
 
-class DiamondTrap : public FragTrap, public ScavTrap
+class DiamondTrap : public ScavTrap, public FragTrap
 {
-private:
-    std::string _name;
-
 public:
-    DiamondTrap( std::string name );
-    ~DiamondTrap();
+    DiamondTrap(void);
+    DiamondTrap(std::string name);
+    DiamondTrap(const DiamondTrap &src);
 
-    using   ScavTrap::attack;
-    void    whoAmI( void );
+    ~DiamondTrap(void);
+
+    DiamondTrap &operator=(DiamondTrap const &src);
+
+    std::string getName(void) const;
+    void whoAmI(void) const;
+
+    using ScavTrap::attack;
+
+    using FragTrap::highFivesGuys;
+    using ScavTrap::guardGate;
+
+private:
+    std::string Name;
+
+    using ClapTrap::AttackDamage;
+    using ClapTrap::EnergyPoints;
+    using ClapTrap::Hitpoints;
 };
 
-#endif // DIAMONDTRAP_HPP
+std::ostream &operator<<(std::ostream &os, DiamondTrap const &std);
+
+#endif

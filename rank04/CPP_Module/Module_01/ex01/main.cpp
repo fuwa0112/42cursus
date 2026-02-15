@@ -5,22 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:27:36 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:27:37 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/15 06:22:10 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/15 19:28:05 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-#define N 4
+Zombie *zombieHorde(int N, std::string name);
 
-int main( void ) {
-    Zombie *zombiz = zombieHorde(N, "zombi");
-
-    for (size_t i = 0; i < N; i++) {
-        zombiz[i].announce();
+int main(void)
+{
+    const int NUM_ZOMBIES = 10;
+    Zombie *zombies = zombieHorde(NUM_ZOMBIES, "Chad");
+    for (int i = 0; i < NUM_ZOMBIES; ++i)
+    {
+        zombies[i].announce();
     }
-
-    delete [] zombiz;
-    return 0;
+    delete[] zombies;
+    return (0);
 }

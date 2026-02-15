@@ -1,59 +1,45 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/12 12:32:47 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/12 12:32:47 by thitoe           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = 02
+CC = clang++
+FLAGS = -Wall -Wextra -Werror
+NINETYEIGHT = -std=c++98 -pedantic
+SANITIZE = -g -fsanitize=address
 
-NAME		= fragtrap
-	
-CC			= c++
-FLAGS		= -Wall -Wextra -Werror -std=c++98
-RM			= rm -rf
+SRC_NAME =	ClapTrap.cpp \
+			ScavTrap.cpp \
+			FragTrap.cpp \
+			main.cpp \
 
-OBJDIR = .objFiles
+INCLUDES =  ClapTrap.hpp \
+			ScavTrap.hpp \
+			FragTrap.hpp \
 
-FILES		= main ClapTrap ScavTrap FragTrap
+OBJ_NAME = $(SRC_NAME:.cpp=.o)
+OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
 
-SRC			= $(FILES:=.cpp)
-OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= ClapTrap.hpp ScavTrap.hpp FragTrap.hpp
-
-#Colors:
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
-
-#Debug 
-ifeq ($(DEBUG), 1)
-   OPTS = -g
-endif
-
-.PHONY: all clean fclean re
+SRC_DIR = ./src/
+OBJ_DIR = ./obj/
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) $(OPTS) -o $(NAME)
-	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
+$(NAME): $(OBJ)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
+	@echo "##### Finished compiling! #####"
+	@echo "\n"
 
-$(OBJDIR)/%.o: %.cpp $(HEADER)
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) $(OPTS) -c $< -o $@
+$(OBJ_DIR)%.o: %.cpp $(INCLUDES)
+	@mkdir -p $(OBJ_DIR)
+	@echo "##### Creating" [ $@ ] " #####"
+	$(CC) $(FLAGS) -c $< -I. -o $@
 
 clean:
-	@$(RM) $(OBJDIR) $(OBJ)
-	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
+	@echo "##### Removed object files #####"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+	@rm -f $(NAME)
+	@echo "##### Removed binary files #####"
 
 re: fclean all
+
+.PHONY: all clean fclean re

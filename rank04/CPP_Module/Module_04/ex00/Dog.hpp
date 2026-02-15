@@ -1,29 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:57 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:57 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef DOG_HPP
-# define DOG_HPP
+#pragma once
+#ifndef __DOG_H__
+#define __DOG_H__
+#define BLUE "\033[1;34m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 #include "Animal.hpp"
 
-class Dog : public Animal
+class Dog : virtual public Animal
 {
-private:
-
 public:
-    Dog( void );
-    ~Dog( void );
+    Dog(void);
+    Dog(Dog const &src);
 
-    void   makeSound( void ) const;
+    virtual ~Dog(void);
+
+    Dog &operator=(Dog const &src);
+
+    std::string getType(void) const;
+    void makeSound(void) const;
+
+private:
+    std::string type;
 };
 
-#endif // DOG_HPP
+#endif

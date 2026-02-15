@@ -1,26 +1,36 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:32:40 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:32:41 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "FragTrap.hpp"
+#include <iostream>
 
-int main( void )
+int main(void)
 {
-    FragTrap ash( "Ash" );
-    FragTrap ash2( ash );
+    std::cout << "FragTrap with default constructor:" << std::endl;
+    FragTrap defaultTrap;
+    std::cout << defaultTrap << std::endl;
 
-    ash.attack( "the air" );
-    ash.takeDamage( 10 );
-    ash.beRepaired( 10 );
-    ash.highFive();
+    std::cout << "FragTrap with name:" << std::endl;
+    FragTrap *namedTrap = new FragTrap("Fraggy");
+    std::cout << *namedTrap << std::endl;
 
-    return EXIT_SUCCESS;
+    std::cout << "Copycat FragTrap (assignment operator):" << std::endl;
+    FragTrap copyTrap;
+    copyTrap = *namedTrap;
+    std::cout << copyTrap << std::endl;
+
+    std::cout << "Copycat FragTrap (copy constructor):" << std::endl;
+    FragTrap copyTrap2(*namedTrap);
+    std::cout << copyTrap2 << std::endl;
+
+    defaultTrap.attack(namedTrap->getName());
+    namedTrap->takeDamage(defaultTrap.getAttackDamage());
+    std::cout << *namedTrap << std::endl;
+
+    namedTrap->beRepaired(10);
+    std::cout << *namedTrap << std::endl;
+
+    namedTrap->highFivesGuys();
+    std::cout << std::endl;
+
+    delete namedTrap;
+    std::cout << std::endl;
+    return 0;
 }

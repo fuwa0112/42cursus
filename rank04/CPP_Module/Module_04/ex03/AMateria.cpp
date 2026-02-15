@@ -1,49 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   AMateria.cpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:36:40 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:36:41 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "AMateria.hpp"
+#include <iomanip>
 
-AMateria::AMateria( void ) : _type("")
+#include "ICharacter.hpp"
+
+AMateria::AMateria(void)
 {
-    // std::cout << "* AMateria: materia is created *" << std::endl;
+    std::cout << GREEN << "AMateria default constructor" << NOCOL << std::endl;
 }
 
-AMateria::AMateria( std::string const & type )  : _type(type)
+AMateria::AMateria(std::string const &type)
 {
-    std::cout << "AMateria " << this->_type << " created" << std::endl;
+    this->type = type;
+    std::cout << GREEN << "AMateria parameter constructor" << NOCOL << std::endl;
 }
 
-AMateria::AMateria( AMateria const & src )
+AMateria::~AMateria(void)
+{
+    std::cout << GREEN << "AMateria destructor" << NOCOL << std::endl;
+}
+
+AMateria::AMateria(AMateria const &src)
 {
     *this = src;
+    std::cout << GREEN << "AMateria copy constructor called" << NOCOL << std::endl;
 }
 
-AMateria::~AMateria( void )
+AMateria &AMateria::operator=(const AMateria &src)
 {
-    std::cout << "AMateria " << this->_type << " destroyed" << std::endl;
+    this->type = src.getType();
+    std::cout << GREEN << "AMateria assignation operator called" << NOCOL << std::endl;
+    return *this;
 }
 
-std::string const & AMateria::getType() const
+std::string const &AMateria::getType(void) const
 {
-    return this->_type;
+    return this->type;
 }
 
-AMateria* AMateria::clone() const
+void AMateria::use(ICharacter &target)
 {
-    return (AMateria*)this;
+    std::cout << GREEN << "AMateria does something on" << target.getName() << NOCOL << std::endl;
 }
-
-void    AMateria::use( ICharacter& target )
-{
-    std::cout << "AMateria " << this->_type << " used on " << target.getName() << std::endl;
-}
-

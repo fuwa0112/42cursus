@@ -1,35 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:34:11 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:34:12 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef WRONGANIMAL_HPP
-#define WRONGANIMAL_HPP
-
+#pragma once
+#ifndef __WRONGWrongAnimal_H__
+#define __WRONGWrongAnimal_H__
+#define RED "\033[0;31m"
+#define NOCOL "\033[0m"
 #include <iostream>
 
 class WrongAnimal
 {
-protected:
-    std::string _type;
-
 public:
-    WrongAnimal( void );
-    WrongAnimal( std::string type );
-    ~WrongAnimal( void );
+    WrongAnimal(void);
+    WrongAnimal(WrongAnimal const &src);
 
-    WrongAnimal( const WrongAnimal& src );
-    WrongAnimal& operator=( const WrongAnimal& rhs );
+    virtual ~WrongAnimal(void);
 
-    void            makeSound( void ) const;
-    std::string     getType( void ) const; 
+    WrongAnimal &operator=(WrongAnimal const &src);
+
+    virtual std::string getType(void) const;
+    void makeSound(void) const;
+
+protected:
+    std::string type;
 };
 
-#endif // WRONGANIMAL_HPP
+#endif

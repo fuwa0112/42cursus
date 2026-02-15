@@ -1,32 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:37:06 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:37:07 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef ICE_HPP
-#define ICE_HPP
+#ifndef __ICE_HPP__
+#define __ICE_HPP__
+#define PURPLE "\033[0;35m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 #include "AMateria.hpp"
 
-class Ice : public AMateria
+class Ice : virtual public AMateria
 {
+public:
+    Ice(void);
+    Ice(Ice const &src);
 
-    public:
-        Ice();
-        ~Ice();
+    ~Ice(void);
 
-        Ice( Ice const & );
-        Ice& operator=( Ice const & );
+    Ice &operator=(Ice const &src);
 
-        virtual AMateria*   clone() const;
-        virtual void        use(ICharacter& target);
+    AMateria *clone(void) const;
+    void use(ICharacter &target);
 };
 
-#endif // ICE_HPP
+#endif

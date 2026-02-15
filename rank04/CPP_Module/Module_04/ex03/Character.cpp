@@ -1,84 +1,111 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Character.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:36:48 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:36:49 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Character.hpp"
 
-Character::Character( std::string const & name ) : _name(name)
+Character::Character(void)
 {
-    for (int i = 0; i < 4; i++) {
-        this->_inventory[i] = NULL;
-    }
-    std::cout << "Character " << this->_name << " created" << std::endl;
+    for (int i = 0; i < this->materiaNum; i++)
+        this->inventory[i] = NULL;
+    std::cout << YELLOW << "Character default constructor" << NOCOL << std::endl;
 }
 
-Character::Character( Character const & src ) : _name(src._name)
+Character::Character(std::string const &name)
 {
-    // for (int i = 0; i < 4; i++)
-    //     this->_inventory[i] = src._inventory[i];
-    *this = src;
-    std::cout << "Character " << this->_name << " created" << std::endl;
+    this->name = name;
+    for (int i = 0; i < this->materiaNum; i++)
+        this->inventory[i] = NULL;
+    std::cout << YELLOW << "Character parameter constructor (" << name << ")" << NOCOL << std::endl;
 }
 
-Character& Character::operator=( Character const & rhs )
+Character::~Character(void)
 {
-    if (this != &rhs)
+    for (int i = 0; i < this->materiaNum; i++)
     {
-        this->_name = rhs._name;
-        for (int i = 0; i < 4; i++)
-            this->_inventory[i] = rhs._inventory[i];
+        if (this->inventory[i] != NULL)
+            delete this->inventory[i];
     }
+    std::cout << YELLOW << "Character destructor" << NOCOL << std::endl;
+}
+
+Character::Character(Character const &src)
+{
+    std::cout << YELLOW << "Character copy constructor called" << NOCOL << std::endl;
+    for (int i = 0; i < this->materiaNum; i++)
+        this->inventory[i] = NULL;
+    *this = src;
+}
+
+Character &Character::operator=(const Character &src)
+{
+    this->name = src.getName();
+    for (int i = 0; i < this->materiaNum; i++)
+        this->inventory[i] = src.inventory[i];
+    std::cout << YELLOW << "Character assignation operator called" << NOCOL << std::endl;
     return *this;
 }
 
-Character::~Character()
+std::string const &Character::getName(void) const
 {
-    std::cout << "Character " << this->_name << " destroyed" << std::endl;
-    for (int i = 0; i < 4; i++)
-        if (this->_inventory[i])
-            delete this->_inventory[i];
+    return this->name;
 }
 
-void    Character::equip( AMateria* m ) {
-    for (int i = 0; i < 4; i++)
-        if (this->_inventory[i] == NULL)
+void Character::equip(AMateria *m)
+{
+
+    if (!m)
+    {
+        std::cout << YELLOW << "Character tried to equip invalid Materia" << NOCOL << std::endl;
+        return;
+    }
+
+    int i = 0;
+    for (; i < this->materiaNum; i++)
+    {
+        if (!this->inventory[i])
         {
-            this->_inventory[i] = m;
-            std::cout << "Character " << this->_name << " equipped with " << m->getType() << std::endl;
+            this->inventory[i] = m;
+            std::cout << YELLOW << "Character equipped Materia of type '" << m->getType() << "'"
+                      << " at index " << i << NOCOL << std::endl;
             return;
         }
-    std::cout << "Character " << this->_name << " can't equip " << m->getType() << std::endl;
+    }
+
+    std::cout << YELLOW << "No space left in Character's inventory" << NOCOL << std::endl;
+    delete m;
 }
 
-void    Character::unequip( int idx ) {
-    if (this->_inventory[idx])
+void Character::unequip(int idx)
+{
+    if (idx >= 0 && idx < this->materiaNum)
     {
-        delete this->_inventory[idx];
-        this->_inventory[idx] = NULL;
-        std::cout << "Character " << this->_name << " unequipped" << std::endl;
+        if (!this->inventory[idx])
+        {
+            std::cout << YELLOW << (this->name.length() ? ("Character '" + this->name + "'") : "Unnamed Character") << " tried to unequip invalid Materia at slot " << idx << NOCOL << std::endl;
+            return;
+        }
+        std::cout << YELLOW << (this->name.length() ? ("Character '" + this->name + "'") : "Unnamed Character") << " unequip() function: unequipped slot " << idx << NOCOL << std::endl;
+        this->inventory[idx] = NULL;
+        return;
+    }
+    std::cout << YELLOW << "Impossible to use Character unequip() function: index out of range" << NOCOL << std::endl;
+}
+
+void Character::use(int idx, ICharacter &target)
+{
+    if (!this->inventory[idx])
+    {
+        std::cout << YELLOW << "Impossible to use Character use() function: unequipped slot" << NOCOL << std::endl;
+        return;
+    }
+
+    if (idx >= 0 && idx < this->materiaNum)
+    {
+        std::cout << YELLOW << (this->name.length() ? ("Character '" + this->name) : "Unnamed Character") << "' use() function:" << NOCOL << std::endl;
+        this->inventory[idx]->use(target);
     }
     else
-        std::cout << "Character " << this->_name << " can't unequip" << std::endl;
+        std::cout << YELLOW << "Impossible to use Character use() function: index out of range" << NOCOL << std::endl;
 }
 
-void    Character::use( int idx, ICharacter& target ) {
-    if (this->_inventory[idx])
-    {
-        this->_inventory[idx]->use(target);
-        std::cout << "Character " << this->_name << " uses " << this->_inventory[idx]->getType() << std::endl;
-    }
-    else
-        std::cout << "Character " << this->_name << " can't use" << std::endl;
-}
-
-std::string const& Character::getName() const {
-    return this->_name;
+void Character::outputInventoryAddress(void) const
+{
+    std::cout << this->inventory << std::endl;
 }

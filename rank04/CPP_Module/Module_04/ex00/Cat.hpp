@@ -1,29 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:33:48 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:49 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef CAT_HPP
-# define CAT_HPP
+#pragma once
+#ifndef __CAT_H__
+#define __CAT_H__
+#define PURPLE "\033[0;35m"
+#define NOCOL "\033[0m"
+#include <iostream>
 
 #include "Animal.hpp"
 
-class Cat : public Animal
+class Cat : virtual public Animal
 {
-private:
-
 public:
-    Cat( void );
-    ~Cat( void );
+    Cat(void);
+    Cat(Cat const &src);
 
-    void   makeSound( void ) const;
+    virtual ~Cat(void);
+
+    Cat &operator=(Cat const &src);
+
+    std::string getType(void) const;
+    void makeSound(void) const;
+
+private:
+    std::string type;
 };
 
-#endif // CAT_HPP
+#endif

@@ -5,55 +5,39 @@
 #                                                     +:+ +:+         +:+      #
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/12 12:28:07 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/12 12:28:08 by thitoe           ###   ########.fr        #
+#    Created: 2026/02/15 06:22:26 by thitoe            #+#    #+#              #
+#    Updated: 2026/02/15 19:36:40 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Zombie
-	
-CC			= c++
-FLAGS		= -Wall -Wextra -Werror -std=c++98
-RM			= rm -rf
+NAME = brain
+CC = clang++
+STD = -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror
+SANITIZE = -g -fsanitize=address
 
-OBJDIR = .objFiles
+SRC_NAME =	main.cpp \
 
-FILES		= main
-
-SRC			= $(FILES:=.cpp)
-OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= 
-
-#Colors:
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
-
-#Debug 
-ifeq ($(DEBUG), 1)
-   OPTS = -g
-endif
-
-.PHONY: all clean fclean re bonus norm
+OBJ_NAME = $(SRC_NAME:.cpp=.o)
+OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) $(OPTS) -o $(NAME)
-	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
+$(NAME): $(OBJ)
+	$(CC) $(STD) $(FLAGS) -o $(NAME) $(OBJ)
+	@echo "Compilation done."
 
-$(OBJDIR)/%.o: %.cpp $(HEADER)
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) $(OPTS) -c $< -o $@
+$(OBJ_DIR)%.o: %.cpp
+	$(CC) $(STD) $(FLAGS) -c $< -I. -o $@
 
 clean:
-	@$(RM) $(OBJDIR) $(OBJ)
-	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
+	@rm -f $(OBJ)
+	@echo "Removed object files"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
+	@rm -f $(NAME)
+	@echo "Removed binary files"
 
 re: fclean all
+
+.PHONY: all clean fclean re

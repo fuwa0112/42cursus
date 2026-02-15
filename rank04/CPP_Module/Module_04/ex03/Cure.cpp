@@ -1,49 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cure.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:36:55 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/12 12:36:56 by thitoe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
-Cure::Cure( void ) : AMateria("cure")
+Cure::Cure(void) : AMateria("cure")
 {
-    // std::cout << "* Cure: materia is created *" << std::endl;
+    this->type = "cure";
+    std::cout << CYAN << "Cure default constructor" << NOCOL << std::endl;
 }
 
-Cure::Cure( Cure const & src ) : AMateria("cure")
+Cure::~Cure(void)
 {
+    std::cout << CYAN << "Cure destructor" << NOCOL << std::endl;
+}
+
+Cure::Cure(Cure const &src)
+{
+    this->type = "cure";
     *this = src;
-    // std::cout << "* Cure: materia is copied *" << std::endl;
+    std::cout << CYAN << "Cure copy constructor called" << NOCOL << std::endl;
 }
 
-Cure&   Cure::operator=( const Cure& rhs ) {
-    if (this != &rhs)
-    {
-        this->_type = rhs._type;
-    }
+Cure &Cure::operator=(const Cure &src)
+{
+    std::cout << CYAN << "Cure assignation operator called (" << src.getType() << ")" << NOCOL << std::endl;
     return *this;
 }
 
-Cure::~Cure()
+AMateria *Cure::clone(void) const
 {
-    // std::cout << "* Ice: cure is destroyed *" << std::endl;
+    std::cout << CYAN << "Cloning a new Cure Materia" << NOCOL << std::endl;
+    return new Cure();
 }
 
-AMateria* Cure::clone() const
+void Cure::use(ICharacter &target)
 {
-    return (new Cure(*this));
+    std::cout << CYAN << "* heals " << (target.getName().length() ? target.getName() : "Unnamed") << "'s wounds *" << NOCOL << std::endl;
 }
-
-void    Cure::use( ICharacter& target )
-{
-    std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
-}
-
-
