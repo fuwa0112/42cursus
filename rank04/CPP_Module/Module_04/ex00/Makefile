@@ -6,12 +6,12 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/22 08:44:31 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/22 08:47:49 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:54:26 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Animal00
-CC = clang++
+CC = c++
 FLAGS = -Wall -Wextra -Werror
 NINETYEIGHT = -std=c++98 -pedantic
 SANITIZE = -g -fsanitize=address

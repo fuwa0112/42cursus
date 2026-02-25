@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:42:29 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 20:50:53 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/25 21:54:05 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ public:
     int getEnergyPoints(void) const;
     int getAttackDamage(void) const;
 
-protected:
+private:
     std::string Name;
     int         Hitpoints;
     int         EnergyPoints;

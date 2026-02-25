@@ -6,12 +6,12 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/22 08:42:44 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/22 08:46:39 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:53:52 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = FragTrap
-CC = clang++
+CC = c++
 FLAGS = -Wall -Wextra -Werror
 NINETYEIGHT = -std=c++98 -pedantic
 SANITIZE = -g -fsanitize=address

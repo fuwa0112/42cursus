@@ -6,12 +6,12 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/15 06:22:59 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/15 21:44:01 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:53:09 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Harl
-CC = clang++
+CC = c++
 STD = -std=c++98 -pedantic
 FLAGS = -Wall -Wextra -Werror
 SANITIZE = -g -fsanitize=address

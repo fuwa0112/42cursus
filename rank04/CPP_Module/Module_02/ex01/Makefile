@@ -1,5 +1,5 @@
 NAME = FIixed01
-CC = clang++
+CC = c++
 FLAGS = -Wall -Wextra -Werror
 NINETYEIGHT = -std=c++98 -pedantic
 SANITIZE = -g -fsanitize=address

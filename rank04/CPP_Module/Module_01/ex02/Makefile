@@ -6,12 +6,12 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/15 06:22:26 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/15 19:36:40 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:53:11 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = brain
-CC = clang++
+CC = c++
 STD = -std=c++98 -pedantic
 FLAGS = -Wall -Wextra -Werror
 SANITIZE = -g -fsanitize=address

@@ -6,12 +6,12 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/15 06:22:37 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/15 19:45:47 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:53:11 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = violence
-CC = clang++
+CC = c++
 STD = -std=c++98 -pedantic
 FLAGS = -Wall -Wextra -Werror
 SANITIZE = -g -fsanitize=address

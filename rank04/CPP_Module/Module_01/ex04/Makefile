@@ -6,19 +6,19 @@
 #    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/15 06:22:48 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/15 06:22:49 by thitoe           ###   ########.fr        #
+#    Updated: 2026/02/25 21:53:10 by thitoe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = replace
-CC = clang++
+CC = c++
 STD = -std=c++98 -pedantic
 FLAGS = -Wall -Wextra -Werror
 SANITIZE = -g -fsanitize=address
 
 SRC_NAME =	main.cpp \
 
-INCLUDES = 	
+INCLUDES =
 
 OBJ_NAME = $(SRC_NAME:.cpp=.o)
 OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
