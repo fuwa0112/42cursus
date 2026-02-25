@@ -6,34 +6,29 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:44:27 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:44:28 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/24 16:54:28 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __DOG_H__
-#define __DOG_H__
-#define BLUE "\033[1;34m"
-#define NOCOL "\033[0m"
-#include <iostream>
+#ifndef DOG_HPP
+#define DOG_HPP
 
 #include "Animal.hpp"
 
-class Dog : virtual public Animal
+#define BLUE "\033[1;34m"
+#define NOCOL "\033[0m"
+
+class Dog : public Animal
 {
 public:
-    Dog(void);
-    Dog(Dog const &src);
+    Dog();
+    Dog(const Dog& other);
+    virtual ~Dog();
 
-    virtual ~Dog(void);
+    Dog& operator=(const Dog& other);
 
-    Dog &operator=(Dog const &src);
-
-    std::string getType(void) const;
-    void makeSound(void) const;
-
-private:
-    std::string type;
+    virtual void makeSound() const;
 };
 
 #endif

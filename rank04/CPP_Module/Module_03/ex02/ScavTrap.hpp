@@ -5,16 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/22 08:42:47 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:42:48 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/22 08:42:24 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/24 13:05:54 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #ifndef __SCAVTRAP_H__
 #define __SCAVTRAP_H__
-#include <iostream>
+
 #include "ClapTrap.hpp"
+#include <string>
+
 #define YELLOW "\033[1;33m"
 #define NOCOL "\033[0m"
 
@@ -22,24 +24,14 @@ class ScavTrap : public ClapTrap
 {
 public:
     ScavTrap(void);
-    ScavTrap(std::string name);
-    ScavTrap(const ScavTrap &src);
-
+    ScavTrap(const std::string& name);
+    ScavTrap(const ScavTrap& src);
     ~ScavTrap(void);
 
-    ScavTrap &operator=(ScavTrap const &src);
+    ScavTrap& operator=(const ScavTrap& src);
 
-    void attack(std::string const &target);
-    void takeDamage(unsigned int amount);
-    void beRepaired(unsigned int amount);
-
+    void attack(const std::string& target) ;
     void guardGate(void) const;
-
-private:
-    using ClapTrap::AttackDamage;
-    using ClapTrap::EnergyPoints;
-    using ClapTrap::Hitpoints;
-    using ClapTrap::Name;
 };
 
 #endif

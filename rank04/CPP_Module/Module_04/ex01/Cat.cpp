@@ -5,51 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/22 08:44:55 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:44:56 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/22 08:44:19 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/25 11:47:07 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-Cat::Cat(void) : type("Cat")
+Cat::Cat() : Animal("Cat"), brain(new Brain())
 {
-    this->brain = new Brain();
     std::cout << PURPLE << "Cat default constructor called" << NOCOL << std::endl;
 }
 
-Cat::Cat(Cat const &src)
+Cat::Cat(const Cat& other) : Animal(other), brain(new Brain(*other.brain))
 {
-    this->brain = new Brain();
-    *this = src;
     std::cout << PURPLE << "Cat copy constructor called" << NOCOL << std::endl;
 }
 
-Cat::~Cat(void)
+Cat::~Cat()
 {
-    delete this->brain;
     std::cout << PURPLE << "Cat destructor called" << NOCOL << std::endl;
+    delete this->brain;
 }
 
-Cat &Cat::operator=(Cat const &src)
+Cat& Cat::operator=(const Cat& other)
 {
-    this->type = src.getType();
-    *(this->brain) = *(src.brain);
     std::cout << PURPLE << "Cat assignation operator called" << NOCOL << std::endl;
+    if (this != &other)
+    {
+        Animal::operator=(other);
+        *this->brain = *other.brain;
+    }
     return *this;
 }
 
-std::string Cat::getType(void) const
-{
-    return this->type;
-}
-
-Brain *Cat::getBrain(void) const
-{
-    return this->brain;
-}
-
-void Cat::makeSound(void) const
+void Cat::makeSound() const
 {
     std::cout << PURPLE << "Miao miao miao" << NOCOL << std::endl;
+}
+
+void Cat::setIdea(int idx, const std::string& idea)
+{
+    this->brain->setIdea(idx, idea);
+}
+
+std::string Cat::getIdea(int idx) const
+{
+    return this->brain->getIdea(idx);
 }

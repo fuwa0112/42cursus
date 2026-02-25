@@ -6,40 +6,37 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:44:36 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:44:37 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/24 16:56:30 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat(void) : type("WrongCat")
+WrongCat::WrongCat()
 {
+    this->type = "WrongCat";
     std::cout << YELLOW << "WrongCat default constructor called" << NOCOL << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat const &src)
+WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other)
 {
-    std::cout << "WrongCat copy constructor called" << std::endl;
-    *this = src;
+    std::cout << YELLOW << "WrongCat copy constructor called" << NOCOL << std::endl;
 }
 
-WrongCat::~WrongCat(void)
+WrongCat::~WrongCat()
 {
     std::cout << YELLOW << "WrongCat destructor called" << NOCOL << std::endl;
 }
 
-WrongCat &WrongCat::operator=(const WrongCat &src)
+WrongCat& WrongCat::operator=(const WrongCat& other)
 {
-    this->type = src.getType();
-    std::cout << "WrongCat assignation operator called" << std::endl;
+    std::cout << YELLOW << "WrongCat assignation operator called" << NOCOL << std::endl;
+    if (this != &other)
+        WrongAnimal::operator=(other);
     return *this;
 }
-std::string WrongCat::getType(void) const
-{
-    return this->type;
-}
 
-void WrongCat::makeSound(void) const
+void WrongCat::makeSound() const
 {
-    std::cout << YELLOW << "Miao miao miao" << NOCOL << std::endl;
+    std::cout << YELLOW << "WrongCat meow" << NOCOL << std::endl;
 }

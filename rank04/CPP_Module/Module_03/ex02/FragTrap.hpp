@@ -6,40 +6,31 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:42:40 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:42:41 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/24 13:24:10 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #ifndef __FRAGTRAP_H__
 #define __FRAGTRAP_H__
-#include <iostream>
+
 #include "ClapTrap.hpp"
-#define BLUE "\033[1;34m"
-#define NOCOL "\033[0m"
+#include <string>
+
+#define MAGENTA "\033[1;35m"
 
 class FragTrap : public ClapTrap
 {
 public:
     FragTrap(void);
-    FragTrap(std::string name);
-    FragTrap(const FragTrap &src);
-
+    FragTrap(const std::string& name);
+    FragTrap(const FragTrap& src);
     ~FragTrap(void);
 
-    FragTrap &operator=(FragTrap const &src);
+    FragTrap& operator=(const FragTrap& src);
 
-    using ClapTrap::attack;
-    using ClapTrap::beRepaired;
-    using ClapTrap::takeDamage;
-
+    void attack(const std::string& target);
     void highFivesGuys(void) const;
-
-private:
-    using ClapTrap::AttackDamage;
-    using ClapTrap::EnergyPoints;
-    using ClapTrap::Hitpoints;
-    using ClapTrap::Name;
 };
 
 #endif

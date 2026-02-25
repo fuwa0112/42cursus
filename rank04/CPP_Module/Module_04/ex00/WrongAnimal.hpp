@@ -6,32 +6,35 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:44:35 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:44:36 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/24 16:55:14 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __WRONGWrongAnimal_H__
-#define __WRONGWrongAnimal_H__
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
+
+#include <iostream>
+#include <string>
+
 #define RED "\033[0;31m"
 #define NOCOL "\033[0m"
-#include <iostream>
 
 class WrongAnimal
 {
-public:
-    WrongAnimal(void);
-    WrongAnimal(WrongAnimal const &src);
-
-    virtual ~WrongAnimal(void);
-
-    WrongAnimal &operator=(WrongAnimal const &src);
-
-    virtual std::string getType(void) const;
-    void makeSound(void) const;
-
 protected:
     std::string type;
+
+public:
+    WrongAnimal();
+    WrongAnimal(const WrongAnimal& other);
+    ~WrongAnimal();
+
+    WrongAnimal& operator=(const WrongAnimal& other);
+
+    std::string getType() const;
+
+    void makeSound() const;
 };
 
 #endif

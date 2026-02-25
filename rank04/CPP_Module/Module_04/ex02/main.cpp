@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:45:22 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:45:23 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/25 12:27:51 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,64 +16,28 @@
 #include "Brain.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#define NUM_ANIMALS
 
-int main(void)
+int main()
 {
+    std::cout << "Polymorphism test:" << std::endl;
 
-    std::cout << "Create a dog and a cat:" << std::endl;
-    std::cout << std::endl;
-    const Animal *j = new Dog();
-    std::cout << std::endl;
-    const Animal *i = new Cat();
-    std::cout << std::endl;
+    const Animal* a1 = new Dog();
+    const Animal* a2 = new Cat();
 
-    std::cout << "Types:" << std::endl;
-    std::cout << "j type is: " << j->getType() << std::endl;
-    std::cout << "j type is: " << i->getType() << std::endl;
-    std::cout << std::endl;
+    std::cout << a1->getType() << ": ";
+    a1->makeSound();
 
-    std::cout << "Sounds:" << std::endl;
-    j->makeSound();
-    i->makeSound();
-    std::cout << std::endl;
+    std::cout << a2->getType() << ": ";
+    a2->makeSound();
 
-    delete j;
-    std::cout << std::endl;
-    delete i;
-    std::cout << std::endl;
+    delete a1;
+    delete a2;
 
-    std::cout << "Deep copy tests:" << std::endl;
-    Cat seed;
-    std::cout << std::endl;
+    std::cout << "\nAbstract class compile-time test:" << std::endl;
+    std::cout << "Uncommenting the next lines must fail to compile." << std::endl;
 
-    Cat copy = Cat(seed);
-    std::cout << std::endl;
+    // Animal x;
+    // const Animal* y = new Animal();
 
-    Cat copy2 = seed;
-    std::cout << std::endl;
-
-    std::cout << "Brains memory addresses:" << std::endl;
-    std::cout << seed.getBrain() << std::endl;
-    std::cout << copy.getBrain() << std::endl;
-    std::cout << copy2.getBrain() << std::endl;
-    std::cout << std::endl;
-
-    Dog seedDog;
-    std::cout << std::endl;
-
-    Dog copyDog = Dog(seedDog);
-    std::cout << std::endl;
-
-    Dog copy2Dog = seedDog;
-    std::cout << std::endl;
-
-    std::cout << "Brains memory addresses:" << std::endl;
-    std::cout << seedDog.getBrain() << std::endl;
-    std::cout << copyDog.getBrain() << std::endl;
-    std::cout << copy2Dog.getBrain() << std::endl;
-    std::cout << std::endl;
-
-    // const Animal *wrong = new Animal();
-    return (0);
+    return 0;
 }

@@ -5,51 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/22 08:45:18 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:45:19 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/22 08:44:26 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/25 11:53:56 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog(void) : type("Dog")
+Dog::Dog() : Animal("Dog"), brain(new Brain())
 {
-    this->brain = new Brain();
     std::cout << BLUE << "Dog default constructor called" << NOCOL << std::endl;
 }
 
-Dog::Dog(Dog const &src)
+Dog::Dog(const Dog& other) : Animal(other), brain(new Brain(*other.brain))
 {
-    this->brain = new Brain();
-    *this = src;
     std::cout << BLUE << "Dog copy constructor called" << NOCOL << std::endl;
 }
 
-Dog::~Dog(void)
+Dog::~Dog()
 {
-    delete this->brain;
     std::cout << BLUE << "Dog destructor called" << NOCOL << std::endl;
+    delete this->brain;
 }
 
-Dog &Dog::operator=(const Dog &src)
+Dog& Dog::operator=(const Dog& other)
 {
-    this->type = src.getType();
-    *(this->brain) = *(src.brain);
     std::cout << BLUE << "Dog assignation operator called" << NOCOL << std::endl;
+
+    if (this != &other)
+    {
+        Animal::operator=(other);
+        *this->brain = *other.brain;
+    }
     return *this;
 }
 
-std::string Dog::getType(void) const
+void Dog::makeSound() const
 {
-    return this->type;
+    std::cout << BLUE << "Woof woof" << NOCOL << std::endl;
 }
 
-Brain *Dog::getBrain(void) const
+void Dog::setIdea(int idx, const std::string& idea)
 {
-    return this->brain;
+    this->brain->setIdea(idx, idea);
 }
 
-void Dog::makeSound(void) const
+std::string Dog::getIdea(int idx) const
 {
-    std::cout << BLUE << "Bau bau bau" << NOCOL << std::endl;
+    return this->brain->getIdea(idx);
 }
+

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:42:23 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:42:24 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/24 15:54:20 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,56 +20,60 @@ ScavTrap::ScavTrap(void) : ClapTrap()
     std::cout << YELLOW << "ScavTrap default constructor called" << NOCOL << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
 {
-    this->Name = name;
     this->Hitpoints = 100;
     this->EnergyPoints = 50;
     this->AttackDamage = 20;
-    std::cout << YELLOW << "ScavTrap parameter constructor called (" << name << ")" << NOCOL << std::endl;
-};
+    std::cout << YELLOW << "ScavTrap parameter constructor called (" << this->Name << ")" << NOCOL << std::endl;
+}
 
-ScavTrap::ScavTrap(const ScavTrap &src) : ClapTrap(src.getName())
+ScavTrap::ScavTrap(const ScavTrap& src) : ClapTrap(src)
 {
-    this->Hitpoints = 100;
-    this->EnergyPoints = 50;
-    this->AttackDamage = 20;
-    *this = src;
     std::cout << YELLOW << "ScavTrap copy constructor called (" << this->Name << ")" << NOCOL << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
 {
-    std::cout << YELLOW << "ScavTrap destructor called" << NOCOL << std::endl;
-};
+    std::cout << YELLOW << "ScavTrap destructor called (" 
+              << (this->Name.length() ? this->Name : "without name")
+              << ")" << NOCOL << std::endl;
+}
 
-ScavTrap &ScavTrap::operator=(ScavTrap const &src)
+ScavTrap& ScavTrap::operator=(const ScavTrap& src)
 {
-    this->Name = src.Name;
+    if (this != &src)
+        ClapTrap::operator=(src);
     std::cout << YELLOW << "ScavTrap assignment operator overload called" << NOCOL << std::endl;
     return *this;
 }
 
-void ScavTrap::attack(std::string const &target)
+void ScavTrap::attack(const std::string& target)
 {
+    if (this->Hitpoints <= 0)
+    {
+        std::cout << YELLOW << "ScavTrap "
+                  << (this->Name.length() ? this->Name : "without name")
+                  << " can't attack because it has no hit points left!" << NOCOL << std::endl;
+        return;
+    }
+    if (this->EnergyPoints <= 0)
+    {
+        std::cout << YELLOW << "ScavTrap "
+                  << (this->Name.length() ? this->Name : "without name")
+                  << " can't attack because it has no energy points left!" << NOCOL << std::endl;
+        return;
+    }
+
     this->EnergyPoints--;
     std::cout << YELLOW << "ScavTrap " << (this->Name.length() ? this->Name : "without name")
-              << " attacks " << (target.length() ? target : "Unnamed trap") << ", causing " << this->AttackDamage << " points of damage!" << NOCOL << std::endl;
-}
-
-void ScavTrap::takeDamage(unsigned int amount)
-{
-    this->Hitpoints -= amount;
-    std::cout << YELLOW << "ScavTrap " << (this->Name.length() ? this->Name : "without name") << " takes " << amount << " points of damage!" << NOCOL << std::endl;
-}
-
-void ScavTrap::beRepaired(unsigned int amount)
-{
-    this->Hitpoints += amount;
-    std::cout << YELLOW << "ScavTrap " << (this->Name.length() ? this->Name : "without name") << " has recovered " << amount << " points of life and has now " << this->Hitpoints << "!" << NOCOL << std::endl;
+              << " attacks " << (target.length() ? target : "Unnamed trap")
+              << ", causing " << this->AttackDamage << " points of damage!" << NOCOL << std::endl;
 }
 
 void ScavTrap::guardGate(void) const
 {
-    std::cout << YELLOW << "ScavTrap " << (this->Name.length() ? this->Name : "without name") << " has entered Gate keeper mode" << NOCOL << std::endl;
+    std::cout << YELLOW << "ScavTrap "
+              << (this->Name.length() ? this->Name : "without name")
+              << " is now in Gate keeper mode." << NOCOL << std::endl;
 }

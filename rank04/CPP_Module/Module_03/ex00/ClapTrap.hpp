@@ -6,14 +6,16 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 08:42:29 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/22 08:42:30 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/22 20:50:53 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef __CLAPTRAP_H__
-#define __CLAPTRAP_H__
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
+
 #include <iostream>
+#include <string>
+
 #define CYAN "\033[1;36m"
 #define NOCOL "\033[0m"
 
@@ -21,14 +23,13 @@ class ClapTrap
 {
 public:
     ClapTrap(void);
-    ClapTrap(std::string name);
-    ClapTrap(const ClapTrap &src);
-
+    ClapTrap(const std::string& name);
+    ClapTrap(const ClapTrap& src);
     ~ClapTrap(void);
 
-    ClapTrap &operator=(const ClapTrap &src);
+    ClapTrap& operator=(const ClapTrap& src);
 
-    void attack(std::string const &target);
+    void attack(const std::string& target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
 
@@ -37,13 +38,13 @@ public:
     int getEnergyPoints(void) const;
     int getAttackDamage(void) const;
 
-private:
+protected:
     std::string Name;
-    int Hitpoints;
-    int EnergyPoints;
-    int AttackDamage;
+    int         Hitpoints;
+    int         EnergyPoints;
+    int         AttackDamage;
 };
 
-std::ostream &operator<<(std::ostream &os, ClapTrap const &std);
+std::ostream& operator<<(std::ostream& os, const ClapTrap& ct);
 
 #endif
