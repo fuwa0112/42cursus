@@ -3,39 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshein <lshein@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 20:40:06 by hthant            #+#    #+#             */
-/*   Updated: 2025/07/23 12:20:59 by lshein           ###   ########.fr       */
+/*   Created: 2026/02/27 17:57:58 by thitoe            #+#    #+#             */
+/*   Updated: 2026/02/27 17:57:59 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minirt.h"
+#include "mini_rt.h"
+#include "scene_elements.h"
+#include "shapes.h"
+
+inline static bool	is_window_size_changed(mlx_t *mlx)
+{
+	static int32_t	width = WIN_WIDTH;
+	static int32_t	height = WIN_HEIGHT;
+	static int32_t	max_width;
+	static int32_t	max_height;
+
+	max_width = 0;
+	max_height = 0;
+	mlx_get_monitor_size(0, &max_width, &max_height);
+	if (mlx->width != width || mlx->height != height)
+	{
+		if (mlx->width > max_width)
+			mlx->width = max_width;
+		if (mlx->height > max_height)
+			mlx->height = max_height;
+		height = mlx->height;
+		width = mlx->width;
+		mlx_set_window_size(mlx, mlx->width, mlx->height);
+		return (true);
+	}
+	return (false);
+}
+
+inline static void	minirt(void *param)
+{
+	t_master	*m;
+
+	m = (t_master *)param;
+	if (is_window_size_changed(m->mlx))
+	{
+		m->img = setup_image(m->img, m->mlx->width, m->mlx->height);
+		m->cam = setup_camera(m->cam, m->img);
+		mlx_resize_image(m->mlx_img, m->mlx->width, m->mlx->height);
+	}
+	render(m, m->mlx_img);
+}
+
+static int	init_parsing(int argc, char *arg, t_parser *parser,
+						t_hittables *htbls)
+{
+	if (argc != 2)
+	{
+		print_error("error: usage: ./miniRT [maps/mapname]");
+		return (1);
+	}
+	ft_memset(parser, 0, sizeof(t_parser));
+	ft_memset(htbls, 0, sizeof(t_hittables));
+	parser->hittables = htbls;
+	if (parse_file(arg, parser))
+		return (1);
+	if (init_shapes(arg, parser))
+	{
+		rt_cleanup(parser);
+		return (1);
+	}
+	return (0);
+}
+
+static int	run_mlx(t_master *m, t_image *img)
+{
+	m->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "MINI RAY TRACER", true);
+	m->mlx_img = mlx_new_image(m->mlx, img->image_width, img->image_height);
+	if (!m->mlx_img || (mlx_image_to_window(m->mlx, m->mlx_img, 0, 0) < 0))
+		return (print_error("error: mlx error\n"));
+	mlx_key_hook(m->mlx, &check_events, m);
+	if (!mlx_loop_hook(m->mlx, &minirt, m))
+		mlx_terminate(m->mlx);
+	mlx_loop(m->mlx);
+	mlx_terminate(m->mlx);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
-	int		line_count;
+	t_master	m;
+	t_hittables	hittables;
+	t_image		img;
+	t_parser	parser;
 
-	if (parse_args(argc, argv) == 1)
+	if (init_parsing(argc, argv[1], &parser, &hittables))
 		return (1);
-	data = malloc(sizeof(t_data));
-	if (!data)
+	m.light = parser.lights;
+	m.img = setup_image(&img, WIN_WIDTH, WIN_HEIGHT);
+	m.cam = parser.camera;
+	m.cam = setup_camera(m.cam, &img);
+	m.htbl = parser.hittables;
+	if (run_mlx(&m, &img))
+	{
+		rt_cleanup(&parser);
 		return (1);
-	ft_bzero(data, sizeof(t_data));
-	if (init_object_counts(data) == 1)
-		return (free_data(data), 1);
-	line_count = count_lines(argv[1]);
-	if (line_count <= 0)
-		return (1);
-	if (parse_scene(argv[1], data, line_count) == 1)
-		return (free_data(data), 1);
-	if (init_mlx(data) == 1)
-		return (free_data(data), 1);
-	if (init_viewport(data) == 1)
-		return (free_data(data), 1);
-	render_scene(data);
-	free_mlx(data);
-	free_data(data);
+	}
+	rt_cleanup(&parser);
 	return (0);
 }
