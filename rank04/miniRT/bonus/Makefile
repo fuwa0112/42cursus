@@ -41,7 +41,7 @@ $(LIBMLX):
 
 $(LIBFT):
 			@make --no-print-directory -C $(LIBFT_DIR)
-			
+
 $(OBJ):		$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(LIBFT_DIR)/libft.h
 			cc $(FLAGS) -c $< -o $@ $(HEADERS)
 

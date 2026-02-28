@@ -1,64 +1,64 @@
-NAME		= miniRT
-LIBMLX		= $(MLX_PATH)/build/libmlx42.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/02/28 14:46:28 by thitoe            #+#    #+#              #
+#    Updated: 2026/02/28 15:34:45 by thitoe           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-FLAGS		= -Werror -Wall -Wextra -O3
-MLX42		= $(LIBMLX) -Iinclude -ldl -lglfw -pthread -lm
+NAME = miniRT
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 
-SRC_PATH	= src/
-OBJ_PATH	= obj/
-MLX_PATH	= lib/MLX42/
+SRC_DIR = src
+OBJ_DIR = obj
+MLX_DIR = minilibx-linux
 
-HEADERS		= -I./inc -I./$(MLX_PATH)/include -I./lib/libft
+MLX = $(MLX_DIR)/libmlx.a
 
-SRC			= main.c utils.c init.c render.c update_hit.c\
-			  sphere.c plane.c cylinder.c cylinder_cap.c light.c \
-			  vector_math1.c vector_math2.c vector_math3.c \
-			  parsing.c parsing_utils.c init_shapes.c \
-			  init_ambient.c init_camera.c init_light.c \
-			  init_plane.c init_sphere.c init_vectors.c init_cylinder.c \
-			  init_shapes_utils.c init_shapes_utils2.c rt_cleanup.c \
-			  events.c
-OBJ			= $(SRC:%.c=$(OBJ_PATH)%.o)
+SRCS = main.c \
+	utils/ft_split.c utils/ft_splitspace.c utils/get_next_line.c \
+	vectors/vec_op2.c vectors/vector_op.c \
+	parsing/parse_camera.c parsing/parse_object.c \
+	parsing/parse_options.c parsing/parsing.c \
+	utils/utils.c utils/utils2.c \
+	parsing/parse_light.c camera.c \
+	utils/utils3.c objects/cylinder.c \
+	objects/cyl_utils.c objects/plan.c \
+	mlx_hooks.c lightning.c \
+	raytracing.c objects/sphere.c
 
-LIBFT_DIR	= ./lib/libft
-LIBFT		= $(LIBFT_DIR)/libft.a
+SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 
-SRC_HEADER	= ./inc/mini_rt.h ./inc/shapes.h ./inc/scene_elements.h
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-all:		$(NAME)
+INCLUDES = -I. -Isrc -I$(MLX_DIR)
 
+LDFLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-$(NAME):	$(LIBMLX) $(OBJ_PATH) $(OBJ) $(LIBFT) $(SRC_HEADER)
-			cc $(OBJ) $(MLX42) $(LIBFT) -o $@ -lm
+all: $(NAME)
 
-$(LIBMLX):
-			cmake $(MLX_PATH) -B $(MLX_PATH)/build
-			make -C $(MLX_PATH)/build -j4
+$(NAME): $(OBJS) $(MLX)
+	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LDFLAGS) -o $(NAME)
 
-debug:		FLAGS:=$(FLAGS) -g
-debug:		re
+$(MLX):
+	make -C $(MLX_DIR)
 
-sanitize:	FLAGS:=$(FLAGS) -g -fsanitize=address -fsanitize=undefined -fsanitize=leak
-sanitize:	re
-
-$(LIBFT):
-			make --no-print-directory -C $(LIBFT_DIR)
-
-$(OBJ):		$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(LIBFT_DIR)/libft.h
-			cc $(FLAGS) -c $< -o $@ $(HEADERS)
-
-$(OBJ_PATH):
-			mkdir -p $(OBJ_PATH)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-			rm -rf $(OBJ_PATH)
-			make clean --no-print-directory -C $(LIBFT_DIR)
+	rm -rf $(OBJ_DIR)
+	make -C $(MLX_DIR) clean
 
-fclean:		clean
-			rm -rf $(NAME)
-			rm -rf $(MLX_PATH)/build
-			make fclean --no-print-directory -C $(LIBFT_DIR)
+fclean: clean
+	rm -f $(NAME)
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re debug sanitize
+.PHONY: all clean fclean re

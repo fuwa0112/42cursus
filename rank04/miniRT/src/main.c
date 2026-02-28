@@ -5,107 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/27 17:57:58 by thitoe            #+#    #+#             */
-/*   Updated: 2026/02/27 17:57:59 by thitoe           ###   ########.fr       */
+/*   Created: 2026/02/28 14:51:09 by hakama            #+#    #+#             */
+/*   Updated: 2026/02/28 15:52:13 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_rt.h"
-#include "scene_elements.h"
-#include "shapes.h"
+#include "minirt.h"
 
-inline static bool	is_window_size_changed(mlx_t *mlx)
+int	get_rgb(t_vec color)
 {
-	static int32_t	width = WIN_WIDTH;
-	static int32_t	height = WIN_HEIGHT;
-	static int32_t	max_width;
-	static int32_t	max_height;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 
-	max_width = 0;
-	max_height = 0;
-	mlx_get_monitor_size(0, &max_width, &max_height);
-	if (mlx->width != width || mlx->height != height)
-	{
-		if (mlx->width > max_width)
-			mlx->width = max_width;
-		if (mlx->height > max_height)
-			mlx->height = max_height;
-		height = mlx->height;
-		width = mlx->width;
-		mlx_set_window_size(mlx, mlx->width, mlx->height);
-		return (true);
-	}
-	return (false);
+	if (color.x < 0.0)
+		color.x = 0.0;
+	else if (color.x > 1.0)
+		color.x = 1.0;
+	if (color.y < 0.0)
+		color.y = 0.0;
+	else if (color.y > 1.0)
+		color.y = 1.0;
+	if (color.z < 0.0)
+		color.z = 0.0;
+	else if (color.z > 1.0)
+		color.z = 1.0;
+	r = (unsigned char)(color.x * 255.0);
+	g = (unsigned char)(color.y * 255.0);
+	b = (unsigned char)(color.z * 255.0);
+	return ((255 << 24) | (r << 16) | (g << 8) | b);
 }
 
-inline static void	minirt(void *param)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
-	t_master	*m;
+	char	*dst;
 
-	m = (t_master *)param;
-	if (is_window_size_changed(m->mlx))
-	{
-		m->img = setup_image(m->img, m->mlx->width, m->mlx->height);
-		m->cam = setup_camera(m->cam, m->img);
-		mlx_resize_image(m->mlx_img, m->mlx->width, m->mlx->height);
-	}
-	render(m, m->mlx_img);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
-static int	init_parsing(int argc, char *arg, t_parser *parser,
-						t_hittables *htbls)
+void	initialize_mlx(t_data *data)
 {
-	if (argc != 2)
+	data->mlx.mlx = mlx_init();
+	if (data->mlx.mlx == NULL)
 	{
-		print_error("error: usage: ./miniRT [maps/mapname]");
-		return (1);
+		free_data_andexit(data, NULL, "Error\n");
 	}
-	ft_memset(parser, 0, sizeof(t_parser));
-	ft_memset(htbls, 0, sizeof(t_hittables));
-	parser->hittables = htbls;
-	if (parse_file(arg, parser))
-		return (1);
-	if (init_shapes(arg, parser))
+	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx, data->img.width,
+			data->img.height, "miniRT");
+	if (data->mlx.mlx_win == NULL)
 	{
-		rt_cleanup(parser);
-		return (1);
+		mlx_destroy_display(data->mlx.mlx);
+		free(data->mlx.mlx);
+		free_data_andexit(data, NULL, "Error\n");
 	}
-	return (0);
+	data->img.img = mlx_new_image(data->mlx.mlx, data->img.width,
+			data->img.height);
+	if (data->img.img == NULL)
+	{
+		mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
+		mlx_destroy_display(data->mlx.mlx);
+		free(data->mlx.mlx);
+		free_data_andexit(data, NULL, "Error\n");
+	}
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel,
+			&data->img.line_length, &data->img.endian);
 }
 
-static int	run_mlx(t_master *m, t_image *img)
+void	initialize_data(t_data *data, char **argv)
 {
-	m->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "MINI RAY TRACER", true);
-	m->mlx_img = mlx_new_image(m->mlx, img->image_width, img->image_height);
-	if (!m->mlx_img || (mlx_image_to_window(m->mlx, m->mlx_img, 0, 0) < 0))
-		return (print_error("error: mlx error\n"));
-	mlx_key_hook(m->mlx, &check_events, m);
-	if (!mlx_loop_hook(m->mlx, &minirt, m))
-		mlx_terminate(m->mlx);
-	mlx_loop(m->mlx);
-	mlx_terminate(m->mlx);
-	return (0);
+	data->img.aspect_ratio = 16.0 / 9.0;
+	data->img.width = 1200;
+	data->img.height = data->img.width / data->img.aspect_ratio;
+	data->flags[CAMERA] = 0;
+	data->flags[LIGHT] = 0;
+	data->flags[A_LIGHT] = 0;
+	data->fd = -1;
+	data->parse_obj = NULL;
+	data->objects = NULL;
+	data->num_objects = 0;
+	data->fd = file_check(argv[1]);
+	check_scene(data);
+	camera(data);
+	initialize_mlx(data);
 }
 
 int	main(int argc, char **argv)
 {
-	t_master	m;
-	t_hittables	hittables;
-	t_image		img;
-	t_parser	parser;
+	t_data	data;
 
-	if (init_parsing(argc, argv[1], &parser, &hittables))
-		return (1);
-	m.light = parser.lights;
-	m.img = setup_image(&img, WIN_WIDTH, WIN_HEIGHT);
-	m.cam = parser.camera;
-	m.cam = setup_camera(m.cam, &img);
-	m.htbl = parser.hittables;
-	if (run_mlx(&m, &img))
-	{
-		rt_cleanup(&parser);
-		return (1);
-	}
-	rt_cleanup(&parser);
-	return (0);
+	if (argc != 2)
+		error("Error\nUsage ./miniRT *.rt\n");
+	initialize_data(&data, argv);
+	ray_tracing(&data);
+	mlx_put_image_to_window(data.mlx.mlx, data.mlx.mlx_win, data.img.img, 0, 0);
+	mlx_key_hook(data.mlx.mlx_win, key_hook, &data);
+	mlx_hook(data.mlx.mlx_win, 17, 1L, close_win, &data);
+	mlx_loop(data.mlx.mlx);
+	free_data_andexit(&data, NULL, NULL);
 }
