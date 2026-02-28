@@ -79,7 +79,7 @@ char	*ft_strtrim(char const *s1)
 		start++;
 	while (end > start && s1[end] <= 32)
 		end--;
-	str = malloc(sizeof(char) * end - start + 2);
+	str = malloc(sizeof(char) * (end - start + 2));
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, &s1[start], end - start + 2);

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:50:24 by hakama            #+#    #+#             */
-/*   Updated: 2026/02/28 15:47:05 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/02/28 18:05:14 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	valid_ncords(char *str, double *cords, t_vec *vec)
 	}
 	*vec = new_vec(cords[0], cords[1], cords[2]);
 	len = veclen(*vec);
-	if (len < 1e-6 || fabs(len - 1.0) > 1e-6)
+	if (len < EPS || fabs(len - 1.0) > EPS)
 		return (free_split(elements), 0);
 	return (free_split(elements), 1);
 }
