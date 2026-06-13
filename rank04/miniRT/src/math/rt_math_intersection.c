@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math_intersection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/31 13:43:13 by hermarti          #+#    #+#             */
-/*   Updated: 2026/04/15 17:05:34 by hermarti         ###   ########.fr       */
+/*   Created: 2026/03/31 13:43:13 by hakama            #+#    #+#             */
+/*   Updated: 2026/04/15 17:05:34 by hakama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

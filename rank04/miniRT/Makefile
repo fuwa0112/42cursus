@@ -1,6 +1,6 @@
 NAME = miniRT
 
-INC_DIR = inc src/lib/libft/inc src/lib/minilibx-linux/
+INC_DIR = inc src/libft/inc minilibx-linux/
 SRC_DIR = src
 OBJ_DIR = obj
 
@@ -20,12 +20,12 @@ SRC = \
 SRC := $(addprefix $(SRC_DIR)/,$(SRC))
 OBJS := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-LIBS_TARGET = src/lib/libft/libft.a src/lib/minilibx-linux/libmlx.a
+LIBS_TARGET = src/libft/libft.a minilibx-linux/libmlx.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = $(addprefix -I,$(INC_DIR))
-LDFLAGS = -Lsrc/lib/libft -Lsrc/lib/minilibx-linux
+LDFLAGS = -Lsrc/libft -Lminilibx-linux
 LDLIBS = -lft -lmlx -lm -lXext -lX11
 
 DEBUG ?= 0
@@ -59,8 +59,8 @@ clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C src/lib/libft fclean
-	rm -f src/lib/minilibx-linux/libmlx.a
+	$(MAKE) -C src/libft fclean
+	rm -f minilibx-linux/libmlx.a
 	rm -f $(NAME)
 
 re: fclean all

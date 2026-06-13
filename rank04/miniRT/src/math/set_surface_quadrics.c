@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_quadrics.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 19:35:52 by hermarti          #+#    #+#             */
-/*   Updated: 2026/04/29 21:04:29 by hermarti         ###   ########.fr       */
+/*   Created: 2026/04/29 19:35:52 by hakama            #+#    #+#             */
+/*   Updated: 2026/04/29 21:04:29 by hakama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

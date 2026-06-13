@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_params.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 19:36:53 by hermarti          #+#    #+#             */
-/*   Updated: 2026/04/29 19:37:36 by hermarti         ###   ########.fr       */
+/*   Created: 2026/04/29 19:36:53 by hakama            #+#    #+#             */
+/*   Updated: 2026/04/29 19:37:36 by hakama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
