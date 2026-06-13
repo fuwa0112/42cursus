@@ -57,26 +57,15 @@ The program reads a `.rt` scene file and renders the corresponding image in a gr
 - Scene parsing and validation
 - Window rendering using MiniLibX
 
-## Bonus Features
-
-- Shadows
-- Specular reflections
-- Multiple light sources
-- Object rotations
-- Reflection effects
-- Rendering optimizations
-
 ---
 
 # Project Structure
 
 ```bash
 miniRT/
-├── include/        # Header files
-├── src/            # Source files
-├── scenes/         # Example .rt scenes
-├── libft/          # Custom utility library
-├── minilibx/       # MiniLibX graphics library
+├── include/
+├── src/
+├── minilibx/
 ├── Makefile
 └── README.md
 ````
@@ -173,22 +162,19 @@ cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
 | `sp`       | Sphere        |
 | `pl`       | Plane         |
 | `cy`       | Cylinder      |
-| `co`       | Cone          |
-| `hy`       | Hyperboloid   |
-| `pa`       | Paraboloid    |
 ---
 
 # Rendering Pipeline
 
 The rendering process follows these steps:
 
-1. Parse the `.rt` scene file
-2. Initialize camera and scene objects
-3. Cast rays into the scene
-4. Detect ray-object intersections
-5. Compute lighting and shading
-6. Draw pixels into the image buffer
-7. Display the rendered frame
+* Read and tokenize the .rt scene description file
+* Build internal scene representation (camera, lights, and transformed quadratic surfaces)
+* Generate primary rays from the camera through each pixel
+* Compute ray–object intersections using matrix-defined quadric surfaces in object/world space
+* Evaluate illumination at hit points (ambient, diffuse, specular shading with shadows)
+* Write computed color values into the frame buffer
+* Present the final image in the rendering window via MiniLibX
 
 ---
 
@@ -232,35 +218,23 @@ MiniLibX is used to:
 Example execution:
 
 ```bash
-./miniRT scenes/mandatory/simple.rt
+./miniRT　test/04Shadow.rt
 ```
-
-Expected result:
-
-* A rendered 3D scene displayed in a graphical window
-* Objects illuminated by scene lighting
-* Camera-based perspective rendering
 
 ---
 
 # Resources
+We referred to the following resources during the development of this project.
 
 ## Ray Tracing
+https://jun-networks.hatenablog.com/entry/2021/04/02/043216#%E4%BD%8D%E7%BD%AE%E3%81%A8%E5%90%91%E3%81%8D%E3%81%A8FOV%E3%81%8C%E5%8F%AF%E5%A4%89%E3%81%AA%E3%82%AB%E3%83%A1%E3%83%A9c
+https://knzw.tech/raytracing/?page_id=1243
 
-* The Ray Tracer Challenge — Jamis Buck
-* Ray Tracing in One Weekend
-  [https://raytracing.github.io/](https://raytracing.github.io/)
-* Scratchapixel
-  [https://www.scratchapixel.com/](https://www.scratchapixel.com/)
-
-## Graphics and Mathematics
-
-* MiniLibX Documentation
-* LearnOpenGL Mathematics
-* 3Blue1Brown — Linear Algebra Series
+## Mathematics
+https://manabitimes.jp/math/2649
+https://zenn.dev/mebiusbox/articles/8e765148576919#%F0%9F%93%8C-%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB
 
 ## 42 References
-
 * 42 miniRT subject
 * MiniLibX official documentation
 
@@ -268,25 +242,13 @@ Expected result:
 
 # AI Usage
 
-AI tools were used for:
-
-* Understanding ray tracing concepts
-* Clarifying mathematical formulas
-* Debugging vector calculations
-* Improving documentation structure
-* README formatting assistance
-
-All implementation and final project decisions were completed manually by the project authors.
+AI tools were used to support the development process in areas such as understanding ray tracing principles, clarifying mathematical formulations, debugging vector and geometric computations, and assisting with documentation structure and README formatting.
 
 ---
 
 # Authors
 
-* thaperei
-* hermarti
+* thitoe
+* hakama
 
 ---
-
-# License
-
-This project is part of the 42 curriculum and is intended for educational purposes.

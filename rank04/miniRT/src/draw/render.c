@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:58:02 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:23:53 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 01:13:54 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	shade(t_env *env, t_ray *ray, double t, t_surface *obj)
 	n = get_surface_normal(*obj, hit_p);
 	if (vec4_dot_prod(n, ray->dir) > 0)
 		n = vec4_scale(n, -1.0);
-	hit_p = vec4_add(hit_p, vec4_scale(n, 0.001));
+	hit_p = vec4_add(hit_p, vec4_scale(n, EPSILON));
 	return (calc_lighting(env, n, hit_p, obj));
 }
 
@@ -54,7 +54,7 @@ static void	setup_camera_basis(t_env *env)
 
 	forward = vec4_normalize(env->scene.camera.dir);
 	up = (t_vec4){.x = 0.0, .y = 1.0, .z = 0.0, .w = 0.0};
-	if (fabs(forward.y) > 0.999f)
+	if (fabs(forward.y) > 1 - EPSILON)
 		up = (t_vec4){.x = 0.0, .y = 0.0, .z = 1.0, .w = 0.0};
 	env->scene.camera.right = vec4_normalize(vec4_cross_prod(forward, up));
 	env->scene.camera.up = vec4_normalize(

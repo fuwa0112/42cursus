@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_properties.c                              :+:      :+:    :+:   */
+/*   val_element2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 13:29:00 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/13 21:24:36 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 00:03:50 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,29 @@ int	is_valid_coordinates(char *str)
 
 int	is_valid_normalized_vector(char *str)
 {
+	char	**vstr;
+	double	v[3];
+	double	mag;
 	int		i;
-	float	value;
-	char	**vectors;
 
-	if (str == NULL || str[0] == '\0')
+	if (!str || !*str)
 		return (0);
-	i = -1;
-	vectors = ft_split_charset(str, ",");
-	if (vectors == NULL)
+	vstr = ft_split_charset(str, ",");
+	if (!vstr)
 		return (0);
-	while (vectors[++i])
+	i = 0;
+	while (i < 3 && vstr[i])
 	{
-		value = ft_atof(vectors[i]);
-		if (!is_valid_float(vectors[i]) || value < -1.0 || value > 1.0)
-		{
-			free_arr(vectors);
-			return (0);
-		}
+		if (!is_valid_float(vstr[i]))
+			return (free_arr(vstr), 0);
+		v[i] = ft_atof(vstr[i]);
+		i++;
 	}
-	free_arr(vectors);
-	if (i != 3)
-		return (0);
-	return (1);
+	if (i != 3 || vstr[i])
+		return (free_arr(vstr), 0);
+	free_arr(vstr);
+	mag = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+	return (fabs(mag - 1.0) <= EPSILON);
 }
 
 int	is_valid_fov(char *str)

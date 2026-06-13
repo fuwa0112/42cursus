@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:43:23 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:22:11 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 01:17:45 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_vec4	vec4_normalize(t_vec4 v)
 	double	mag;
 
 	mag = vec4_mag(v);
+	if (mag < 1e-9)
+		return ((t_vec4){0});
 	res.x = v.x / mag;
 	res.y = v.y / mag;
 	res.z = v.z / mag;

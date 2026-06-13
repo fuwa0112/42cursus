@@ -6,11 +6,33 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 16:00:03 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/13 22:23:08 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 00:12:32 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	*init_env(t_env *env, int argc, char **argv)
+{
+	ft_memset(env, 0, sizeof(t_env));
+	if (argc != 2)
+	{
+		show_error("Usage: ./miniRT <file>");
+		return (NULL);
+	}
+	if (!is_valid_input(argv[1], &env->scene))
+		return (ft_lstclear(&env->scene.objs, free_content), NULL);
+	parse_elements(&env->scene);
+	return (env);
+}
+
+void	*destroy_env(t_env *env)
+{
+	destroy_window(&env->window);
+	free_scene(&env->scene);
+	env = NULL;
+	return (NULL);
+}
 
 int	main(int argc, char *argv[])
 {

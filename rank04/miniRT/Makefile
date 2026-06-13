@@ -9,9 +9,9 @@ SRC = \
 	utils/rt_math.c utils/rt_math2.c utils/rt_math3.c utils/rt_math4.c \
 	utils/rt_math5.c utils/rt_math_intersection.c \
 	utils/set_surface_quadrics.c utils/set_surface_params.c utils/surface.c \
-	minirt/env.c minirt/draw.c minirt/window.c minirt/img_buffer.c \
-	minirt/key_hook.c minirt/raytrace.c minirt/raytrace_calc.c \
-	minirt/raytrace_calc2.c minirt/render.c \
+	draw/draw.c draw/window.c draw/img_buffer.c \
+	draw/key_hook.c ray/raytrace.c ray/raytrace_calc.c \
+	ray/raytrace_calc2.c draw/render.c \
 	val/val_element.c val/val_element2.c \
 	val/val_input.c val/val_obj.c \
 	val/val_scene.c \

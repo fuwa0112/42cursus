@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:43:13 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:22:05 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 01:10:52 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static double	check_hit(double x, t_ray *ray, t_surface *surf)
 	t_vec4	cp;
 	double	h;
 
-	if (x <= 0.0001)
+	if (x <= EPSILON)
 		return (NAN);
 	hit_p = vec4_add(ray->orig, vec4_scale(ray->dir, x));
 	cp = vec4_sub(hit_p, surf->obj.coordinate);

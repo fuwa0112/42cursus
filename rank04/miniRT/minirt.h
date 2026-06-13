@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 16:00:03 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/13 21:32:40 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 00:52:37 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
+
+# define EPSILON 1e-4
 
 typedef struct s_vec4
 {
