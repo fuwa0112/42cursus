@@ -1,64 +1,102 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/28 14:46:28 by thitoe            #+#    #+#              #
-#    Updated: 2026/02/28 15:34:45 by thitoe           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+include config.mk
 
-NAME = miniRT
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+# Source files and Objects
+SRC := $(SRC:%=$(SRC_DIR)/%)
+SRC_BONUS := $(SRC_BONUS:%=$(SRC_BONUS_DIR)/%)
+OBJS := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJS_BONUS := $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
-SRC_DIR = src
-OBJ_DIR = obj
-MLX_DIR = minilibx-linux
+# Libs
+LIBS := ft mlx m Xext X11
+LIBS_TARGET := lib/libft/libft.a lib/minilibx-linux/libmlx.a
 
-MLX = $(MLX_DIR)/libmlx.a
+# Flags
+CC := cc
+CFLAGS = -Wall -Wextra -Werror
+CPPFLAGS := $(addprefix -I, $(INC_DIR))
+CPPFLAGS_BONUS := $(addprefix -I, $(INC_BONUS_DIR))
+LDFLAGS := $(addprefix -L, $(dir $(LIBS_TARGET)))
+LDLIBS := $(addprefix -l, $(LIBS))
 
-SRCS = main.c \
-	utils/ft_split.c utils/ft_splitspace.c utils/get_next_line.c \
-	vectors/vec_op2.c vectors/vector_op.c \
-	parsing/parse_camera.c parsing/parse_object.c \
-	parsing/parse_options.c parsing/parsing.c \
-	utils/utils.c utils/utils2.c \
-	parsing/parse_light.c camera.c \
-	utils/utils3.c objects/cylinder.c \
-	objects/cyl_utils.c objects/plan.c \
-	mlx_hooks.c lightning.c \
-	raytracing.c objects/sphere.c
+OPT ?= 0
+ifeq ($(OPT), 1)
+    CFLAGS += -O3
+endif
 
-SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
+DEBUG ?= 0
+ifeq ($(DEBUG), 1)
+    CFLAGS += -g2 -O0
+endif
 
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-
-INCLUDES = -I. -Isrc -I$(MLX_DIR)
-
-LDFLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+RM := rm -f
+RMDIR := rm -fr
+DUP_DIR = mkdir -p $(@D)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLX)
-	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LDFLAGS) -o $(NAME)
-
-$(MLX):
-	make -C $(MLX_DIR)
+$(NAME): $(OBJS) $(LIBS_TARGET)
+	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(DUP_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(LIBS_TARGET):
+	$(MAKE) -C $(@D)
+
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS) $(LIBS_TARGET)
+	$(CC) $(OBJS_BONUS) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(NAME_BONUS)
+
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
+	$(DUP_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS_BONUS) -c $< -o $@
+
+valgrind-run:
+	@valgrind \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		--track-fds=yes \
+		--trace-children=yes \
+		--trace-children-skip='*/bin/*,*/sbin/*,/usr/bin/*' \
+		./$(NAME) $(INPUT)
 
 clean:
-	rm -rf $(OBJ_DIR)
-	make -C $(MLX_DIR) clean
+	$(RMDIR) $(OBJ_DIR) $(OBJ_BONUS_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	make -C lib/libft/ fclean
+	$(RM) lib/minilibx-linux/libmlx.a
+	$(RM) $(NAME) $(NAME_BONUS)
+
+test:
+	make -C tests run
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# Check for development tools
+check-tools:
+	@echo "[INFO] Checking for development tools..."
+	@command -v c_formatter_42 >/dev/null 2>&1 || { \
+        echo "[WARNING] c_formatter_42 not found"; \
+        echo "[INFO] Install with: pip3 install --user 42-formatter"; \
+        echo ""; \
+    }
+	@command -v norminette >/dev/null 2>&1 || { \
+        echo "[WARNING] norminette not found"; \
+        echo "[INFO] Install with: pip3 install --user norminette"; \
+        echo ""; \
+    }
+	@if command -v c_formatter_42 >/dev/null 2>&1 && command -v norminette >/dev/null 2>&1; then \
+        echo "[OK] All development tools are installed"; \
+    else \
+        echo "[INFO] Some tools are missing. Install them for full functionality."; \
+    fi
+
+# Git hooks setup
+setup: check-tools
+	@bash scripts/setup-hooks.sh
+
+.PHONY: all clean fclean re bonus setup check-tools

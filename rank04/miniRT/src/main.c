@@ -5,102 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 14:51:09 by hakama            #+#    #+#             */
-/*   Updated: 2026/02/28 15:52:13 by thitoe           ###   ########.fr       */
+/*   Created: 2026/06/12 14:51:42 by thitoe            #+#    #+#             */
+/*   Updated: 2026/06/12 14:51:43 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdlib.h>
 
-int	get_rgb(t_vec color)
+int	main(int argc, char *argv[])
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	t_env	env;
 
-	if (color.x < 0.0)
-		color.x = 0.0;
-	else if (color.x > 1.0)
-		color.x = 1.0;
-	if (color.y < 0.0)
-		color.y = 0.0;
-	else if (color.y > 1.0)
-		color.y = 1.0;
-	if (color.z < 0.0)
-		color.z = 0.0;
-	else if (color.z > 1.0)
-		color.z = 1.0;
-	r = (unsigned char)(color.x * 255.0);
-	g = (unsigned char)(color.y * 255.0);
-	b = (unsigned char)(color.z * 255.0);
-	return ((255 << 24) | (r << 16) | (g << 8) | b);
-}
-
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	initialize_mlx(t_data *data)
-{
-	data->mlx.mlx = mlx_init();
-	if (data->mlx.mlx == NULL)
-	{
-		free_data_andexit(data, NULL, "Error\n");
-	}
-	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx, data->img.width,
-			data->img.height, "miniRT");
-	if (data->mlx.mlx_win == NULL)
-	{
-		mlx_destroy_display(data->mlx.mlx);
-		free(data->mlx.mlx);
-		free_data_andexit(data, NULL, "Error\n");
-	}
-	data->img.img = mlx_new_image(data->mlx.mlx, data->img.width,
-			data->img.height);
-	if (data->img.img == NULL)
-	{
-		mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
-		mlx_destroy_display(data->mlx.mlx);
-		free(data->mlx.mlx);
-		free_data_andexit(data, NULL, "Error\n");
-	}
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel,
-			&data->img.line_length, &data->img.endian);
-}
-
-void	initialize_data(t_data *data, char **argv)
-{
-	data->img.aspect_ratio = 16.0 / 9.0;
-	data->img.width = 1200;
-	data->img.height = data->img.width / data->img.aspect_ratio;
-	data->flags[CAMERA] = 0;
-	data->flags[LIGHT] = 0;
-	data->flags[A_LIGHT] = 0;
-	data->fd = -1;
-	data->parse_obj = NULL;
-	data->objects = NULL;
-	data->num_objects = 0;
-	data->fd = file_check(argv[1]);
-	check_scene(data);
-	camera(data);
-	initialize_mlx(data);
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	if (argc != 2)
-		error("Error\nUsage ./miniRT *.rt\n");
-	initialize_data(&data, argv);
-	ray_tracing(&data);
-	mlx_put_image_to_window(data.mlx.mlx, data.mlx.mlx_win, data.img.img, 0, 0);
-	mlx_key_hook(data.mlx.mlx_win, key_hook, &data);
-	mlx_hook(data.mlx.mlx_win, 17, 1L, close_win, &data);
-	mlx_loop(data.mlx.mlx);
-	free_data_andexit(&data, NULL, NULL);
+	if (!init_env(&env, argc, argv))
+		return (EXIT_FAILURE);
+	init_window(&env.window, WINDOW_WIDTH, WINDOW_HEIGHT, "MINIRT");
+	set_window_hooks(&env);
+	render_loop(&env);
+	destroy_env(&env);
+	return (EXIT_SUCCESS);
 }
