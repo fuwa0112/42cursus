@@ -1,36 +1,37 @@
-include config.mk
+NAME = miniRT
 
-# Source files and Objects
-SRC := $(SRC:%=$(SRC_DIR)/%)
-SRC_BONUS := $(SRC_BONUS:%=$(SRC_BONUS_DIR)/%)
+INC_DIR = inc src/lib/libft/inc src/lib/minilibx-linux/
+SRC_DIR = src
+OBJ_DIR = obj
+
+SRC = \
+	main.c free_memory.c \
+	math/rt_math.c math/rt_math2.c math/rt_math3.c math/rt_math4.c \
+	math/rt_math5.c math/rt_math_intersection.c \
+	math/set_surface_quadrics.c math/set_surface_params.c math/surface.c \
+	minirt/env.c minirt/draw.c minirt/window.c minirt/img_buffer.c \
+	minirt/key_hook.c minirt/raytrace.c minirt/raytrace_calc.c \
+	minirt/raytrace_calc2.c minirt/render.c \
+	validation/input.c validation/validate_objects.c \
+	validation/validate_scene.c validation/validate_properties.c \
+	validation/validate_number_values.c \
+	parser/parse_scene.c parser/parse_objects.c parser/parse_values.c
+
+SRC := $(addprefix $(SRC_DIR)/,$(SRC))
 OBJS := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJS_BONUS := $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
-# Libs
-LIBS := ft mlx m Xext X11
-LIBS_TARGET := lib/libft/libft.a lib/minilibx-linux/libmlx.a
+LIBS_TARGET = src/lib/libft/libft.a src/lib/minilibx-linux/libmlx.a
 
-# Flags
-CC := cc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS := $(addprefix -I, $(INC_DIR))
-CPPFLAGS_BONUS := $(addprefix -I, $(INC_BONUS_DIR))
-LDFLAGS := $(addprefix -L, $(dir $(LIBS_TARGET)))
-LDLIBS := $(addprefix -l, $(LIBS))
-
-OPT ?= 0
-ifeq ($(OPT), 1)
-    CFLAGS += -O3
-endif
+CPPFLAGS = $(addprefix -I,$(INC_DIR))
+LDFLAGS = -Lsrc/lib/libft -Lsrc/lib/minilibx-linux
+LDLIBS = -lft -lmlx -lm -lXext -lX11
 
 DEBUG ?= 0
-ifeq ($(DEBUG), 1)
-    CFLAGS += -g2 -O0
+ifeq ($(DEBUG),1)
+	CFLAGS += -g3 -O0
 endif
-
-RM := rm -f
-RMDIR := rm -fr
-DUP_DIR = mkdir -p $(@D)
 
 all: $(NAME)
 
@@ -38,20 +39,11 @@ $(NAME): $(OBJS) $(LIBS_TARGET)
 	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(DUP_DIR)
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(LIBS_TARGET):
 	$(MAKE) -C $(@D)
-
-bonus: $(NAME_BONUS)
-
-$(NAME_BONUS): $(OBJS_BONUS) $(LIBS_TARGET)
-	$(CC) $(OBJS_BONUS) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(NAME_BONUS)
-
-$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
-	$(DUP_DIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS_BONUS) -c $< -o $@
 
 valgrind-run:
 	@valgrind \
@@ -64,39 +56,13 @@ valgrind-run:
 		./$(NAME) $(INPUT)
 
 clean:
-	$(RMDIR) $(OBJ_DIR) $(OBJ_BONUS_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	make -C lib/libft/ fclean
-	$(RM) lib/minilibx-linux/libmlx.a
-	$(RM) $(NAME) $(NAME_BONUS)
-
-test:
-	make -C tests run
+	$(MAKE) -C src/lib/libft fclean
+	rm -f src/lib/minilibx-linux/libmlx.a
+	rm -f $(NAME)
 
 re: fclean all
 
-# Check for development tools
-check-tools:
-	@echo "[INFO] Checking for development tools..."
-	@command -v c_formatter_42 >/dev/null 2>&1 || { \
-        echo "[WARNING] c_formatter_42 not found"; \
-        echo "[INFO] Install with: pip3 install --user 42-formatter"; \
-        echo ""; \
-    }
-	@command -v norminette >/dev/null 2>&1 || { \
-        echo "[WARNING] norminette not found"; \
-        echo "[INFO] Install with: pip3 install --user norminette"; \
-        echo ""; \
-    }
-	@if command -v c_formatter_42 >/dev/null 2>&1 && command -v norminette >/dev/null 2>&1; then \
-        echo "[OK] All development tools are installed"; \
-    else \
-        echo "[INFO] Some tools are missing. Install them for full functionality."; \
-    fi
-
-# Git hooks setup
-setup: check-tools
-	@bash scripts/setup-hooks.sh
-
-.PHONY: all clean fclean re bonus setup check-tools
+.PHONY: all clean fclean re

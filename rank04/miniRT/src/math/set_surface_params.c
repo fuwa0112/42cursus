@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_params.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/12 14:50:18 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/12 14:50:19 by thitoe           ###   ########.fr       */
+/*   Created: 2026/04/29 19:36:53 by hermarti          #+#    #+#             */
+/*   Updated: 2026/04/29 19:37:36 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_quadrics.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/12 14:50:22 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/12 16:38:08 by thitoe           ###   ########.fr       */
+/*   Created: 2026/04/29 19:35:52 by hermarti          #+#    #+#             */
+/*   Updated: 2026/04/29 21:04:29 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

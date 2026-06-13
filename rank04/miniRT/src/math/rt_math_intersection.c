@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math_intersection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/12 14:49:51 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/12 14:49:53 by thitoe           ###   ########.fr       */
+/*   Created: 2026/03/31 13:43:13 by hermarti          #+#    #+#             */
+/*   Updated: 2026/04/15 17:05:34 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

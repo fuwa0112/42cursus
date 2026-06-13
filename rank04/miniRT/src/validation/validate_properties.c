@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_properties.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/12 14:51:29 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/12 14:51:31 by thitoe           ###   ########.fr       */
+/*   Created: 2026/04/05 13:29:00 by thaperei          #+#    #+#             */
+/*   Updated: 2026/04/15 20:47:23 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "validation.h"
 #include "free_memory.h"
 #include "libft.h"
-
-#define EPSILON 1e-3
 
 int	is_valid_extension(char *file)
 {
@@ -64,30 +62,29 @@ int	is_valid_coordinates(char *str)
 
 int	is_valid_normalized_vector(char *str)
 {
-	char	**vectors;
-	double	v[3];
-	double	mag;
 	int		i;
+	float	value;
+	char	**vectors;
 
-	if (!str || str[0] == '\0')
-		return (0);
-	vectors = ft_split_charset(str, ",");
-	if (!vectors)
+	if (str == NULL || str[0] == '\0')
 		return (0);
 	i = -1;
+	vectors = ft_split_charset(str, ",");
+	if (vectors == NULL)
+		return (0);
 	while (vectors[++i])
 	{
-		if (i >= 3 || !is_valid_float(vectors[i]))
-			return (free_arr(vectors), 0);
-		v[i] = ft_atof(vectors[i]);
-		if (v[i] < -1.0 || v[i] > 1.0)
-			return (free_arr(vectors), 0);
+		value = ft_atof(vectors[i]);
+		if (!is_valid_float(vectors[i]) || value < -1.0 || value > 1.0)
+		{
+			free_arr(vectors);
+			return (0);
+		}
 	}
-	if (i != 3)
-		return (free_arr(vectors), 0);
-	mag = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 	free_arr(vectors);
-	return (fabs(mag - 1.0) <= EPSILON);
+	if (i != 3)
+		return (0);
+	return (1);
 }
 
 int	is_valid_fov(char *str)
