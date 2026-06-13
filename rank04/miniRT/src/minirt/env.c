@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:16:45 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:23:15 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 22:37:58 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*init_env(t_env *env, int argc, char **argv)
 		return (NULL);
 	}
 	if (!is_valid_input(argv[1], &env->scene))
-		return (NULL);
+		return (ft_lstclear(&env->scene.objs, free_content), NULL);
 	parse_elements(&env->scene);
 	return (env);
 }

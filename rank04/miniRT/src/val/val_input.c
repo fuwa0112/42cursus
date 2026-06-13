@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 10:11:05 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/13 21:24:26 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 22:34:30 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	is_valid_object(t_list *objs, t_obj_count *obj_count)
 		return (0);
 	i = 0;
 	if (!is_allowed_object(arr, i))
-	{
-		free_arr(arr);
-		return (0);
-	}
+		return (free_arr(arr), 0);
 	if (ft_strcmp(arr[0], "A") == 0)
 		obj_count->ambient++;
 	else if (ft_strcmp(arr[0], "C") == 0)
@@ -99,9 +96,10 @@ int	is_valid_input(char *file, t_scene *scene)
 	t_list		*aux;
 	t_obj_count	obj_count;
 
-	if (!is_valid_extension(file) || read_file(file, scene) == 0
-		|| !scene->objs)
+	if (!is_valid_extension(file) || !read_file(file, scene))
 		return (0);
+	if (!scene->objs)
+		return (show_error("Empty scene"), 0);
 	obj_count = (t_obj_count){.ambient = 0, .camera = 0, .light = 0, .obj = 0};
 	aux = scene->objs;
 	while (aux)

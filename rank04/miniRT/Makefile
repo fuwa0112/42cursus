@@ -5,16 +5,16 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = \
-	main.c free_memory.c \
-	math/rt_math.c math/rt_math2.c math/rt_math3.c math/rt_math4.c \
-	math/rt_math5.c math/rt_math_intersection.c \
-	math/set_surface_quadrics.c math/set_surface_params.c math/surface.c \
+	main.c utils/free.c \
+	utils/rt_math.c utils/rt_math2.c utils/rt_math3.c utils/rt_math4.c \
+	utils/rt_math5.c utils/rt_math_intersection.c \
+	utils/set_surface_quadrics.c utils/set_surface_params.c utils/surface.c \
 	minirt/env.c minirt/draw.c minirt/window.c minirt/img_buffer.c \
 	minirt/key_hook.c minirt/raytrace.c minirt/raytrace_calc.c \
 	minirt/raytrace_calc2.c minirt/render.c \
-	validation/input.c validation/validate_objects.c \
-	validation/validate_scene.c validation/validate_properties.c \
-	validation/validate_number_values.c \
+	val/val_element.c val/val_element2.c \
+	val/val_input.c val/val_obj.c \
+	val/val_scene.c \
 	parser/parse_scene.c parser/parse_objects.c parser/parse_values.c
 
 SRC := $(addprefix $(SRC_DIR)/,$(SRC))
