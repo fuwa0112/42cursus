@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 13:29:00 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/14 00:03:50 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 02:51:45 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	is_valid_normalized_vector(char *str)
 		return (free_arr(vstr), 0);
 	free_arr(vstr);
 	mag = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-	return (fabs(mag - 1.0) <= EPSILON);
+	return (fabs(mag - 1.0) <= EPSILONNORM);
 }
 
 int	is_valid_fov(char *str)

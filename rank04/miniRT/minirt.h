@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 16:00:03 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/14 00:52:37 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 02:45:57 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define WINDOW_HEIGHT 600
 
 # define EPSILON 1e-4
+# define EPSILONNORM 1e-1
+# define SHINENESS 32.0
+# define SPEC 0.6
 
 typedef struct s_vec4
 {

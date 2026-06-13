@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:59:09 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:23:43 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 02:10:23 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ double	calc_shadow(t_env *env, t_vec4 hit_p, t_surface *obj)
 		if (&env->scene.surfaces[i] != obj)
 		{
 			shadow_t = intersection(&shadow_ray, &env->scene.surfaces[i]);
-			if (!isnan(shadow_t) && shadow_t > 0.0001 && shadow_t < (light_dist
-					- 0.001))
+			if (!isnan(shadow_t) && shadow_t > EPSILON && shadow_t < (light_dist
+					- EPSILON))
 				return (0.0);
 		}
 		i++;
@@ -80,7 +80,7 @@ t_vec4	calc_light_components(t_env *env, t_surface *obj,
 	view_dir = vec4_normalize(vec4_sub(env->scene.camera.origin, p->hit_p));
 	diff = fmax(vec4_dot_prod(p->n, light_dir), 0.0);
 	spec = pow(fmax(vec4_dot_prod(view_dir, vec4_reflect(vec4_scale(light_dir,
-							-1.0), p->n)), 0.0), 32.0);
+							-1.0), p->n)), 0.0), SHINENESS);
 	return (vec4_add(calc_ambient(env, obj), vec4_add(calc_diffuse(env, obj,
 					diff, p->shadow), calc_specular(env, spec, p->shadow))));
 }

@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 13:49:34 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/13 21:22:36 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 02:42:30 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_vec4	get_orientation(t_vec4 orientation)
 {
-	if (vec4_mag(orientation) < 0.0001)
+	if (vec4_mag(orientation) < EPSILON)
 		return ((t_vec4){0.0, 1.0, 0.0, 0.0});
 	return (vec4_normalize(orientation));
 }

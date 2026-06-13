@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:58:02 by hakama            #+#    #+#             */
-/*   Updated: 2026/06/14 01:13:54 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/14 02:45:35 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	render_scene(t_env *env)
 
 void	render_loop(t_env *env)
 {
-	env->scene.specular = (t_specular){.strenght = 0.6, .color = (t_color){255,
+	env->scene.specular = (t_specular){.strenght = SPEC, .color = (t_color){255,
 		255, 255, 0}};
 	render_scene(env);
 	mlx_put_image_to_window(env->window.mlx, env->window.x_window,
