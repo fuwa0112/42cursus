@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:58:02 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 11:55:55 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:53 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "mlx.h"
-#include "objects.h"
-#include "rt_math.h"
-#include "scene.h"
-#include <math.h>
 
 static int	shade(t_env *env, t_ray *ray, double t, t_surface *obj)
 {

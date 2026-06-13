@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:36:51 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/08 14:50:17 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:56 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mlx.h"
 #include "minirt.h"
 
 void	*init_window(t_window *window, int width, int height, char *window_name)

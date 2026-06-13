@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:58:31 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 11:02:09 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:49 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_math.h"
 #include "minirt.h"
-#include <math.h>
 
 int	cast_ray(t_ray *ray, t_env *env, double *out_t)
 {

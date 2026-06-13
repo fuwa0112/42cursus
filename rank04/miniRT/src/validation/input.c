@@ -6,18 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 10:11:05 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/22 20:26:01 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:26 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "validation.h"
-#include "free_memory.h"
-#include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "minirt.h"
 
 void	show_error(char *msg)
 {

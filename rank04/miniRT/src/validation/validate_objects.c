@@ -6,11 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 20:32:07 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/15 20:32:26 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:33 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "validation.h"
+#include "minirt.h"
 
 int	is_valid_sphere(char **arr)
 {

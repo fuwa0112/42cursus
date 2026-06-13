@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   surface.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 13:49:34 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/29 21:13:43 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:36 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "objects.h"
-#include "rt_math.h"
+#include "minirt.h"
 
 static t_vec4	get_orientation(t_vec4 orientation)
 {

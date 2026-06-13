@@ -1,8 +1,8 @@
-*This project has been created as part of the 42 curriculum by thaperei, hermarti.*
+*This project has been created as part of the 42 curriculum by thitoe, hakama.*
 
 # miniRT
 
-A minimal ray tracer written in C as part of the 42 curriculum.  
+A minimal ray tracer written in C as part of the 42 curriculum.
 This project introduces the fundamentals of computer graphics, linear algebra, and ray tracing by rendering simple 3D scenes using mathematical calculations.
 
 ---

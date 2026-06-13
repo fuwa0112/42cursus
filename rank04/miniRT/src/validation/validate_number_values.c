@@ -6,13 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 22:07:36 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/15 20:55:56 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:31 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "validation.h"
-#include "free_memory.h"
+#include "minirt.h"
 
 int	is_valid_float(const char *str)
 {

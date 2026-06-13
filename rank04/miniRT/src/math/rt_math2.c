@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 14:40:17 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/29 20:24:48 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:15 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "rt_math.h"
+#include "minirt.h"
 
 t_vec4	vec4_cross_prod(t_vec4 a, t_vec4 b)
 {

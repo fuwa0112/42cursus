@@ -6,12 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 18:48:34 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/26 10:49:51 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:04 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "free_memory.h"
-#include "parser.h"
+#include "minirt.h"
 
 void	parse_sphere(char **arr, t_scene *scene)
 {

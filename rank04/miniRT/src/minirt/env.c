@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:16:45 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/27 09:45:47 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:15 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "validation.h"
-#include "parser.h"
 #include "minirt.h"
-#include "libft.h"
-#include "minirt.h"
-#include "free_memory.h"
-#include <stdlib.h>
 
 void	*init_env(t_env *env, int argc, char **argv)
 {

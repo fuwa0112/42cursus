@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_quadrics.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 19:35:52 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/29 21:04:29 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:30 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "rt_math.h"
+#include "minirt.h"
 
 void	set_surface_sphere_quadric(t_surface_parameters *p)
 {

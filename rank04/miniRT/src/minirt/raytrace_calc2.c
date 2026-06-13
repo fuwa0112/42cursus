@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace_calc2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 11:15:01 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 12:02:27 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:46 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "rt_math.h"
 
 int	calc_lighting(t_env *env, t_vec4 n, t_vec4 hit_p, t_surface *obj)
 {

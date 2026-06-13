@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math5.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:58:01 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 10:58:02 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:24 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "rt_math.h"
+#include "minirt.h"
 
 t_mat4	mat4_translation(t_vec4 t)
 {

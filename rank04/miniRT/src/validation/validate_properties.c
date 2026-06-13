@@ -6,13 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 13:29:00 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/15 20:47:23 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:36 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "validation.h"
-#include "free_memory.h"
-#include "libft.h"
+#include "minirt.h"
 
 int	is_valid_extension(char *file)
 {

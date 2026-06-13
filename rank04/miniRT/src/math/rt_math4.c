@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:57:15 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 10:57:46 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:21 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "objects.h"
-#include "rt_math.h"
+#include "minirt.h"
 
 static void	mat4_mult_r01(t_mat4 *r, t_mat4 a, t_mat4 b)
 {

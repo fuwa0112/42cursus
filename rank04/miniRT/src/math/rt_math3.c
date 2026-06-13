@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:55:37 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 12:08:32 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:18 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "rt_math.h"
-#include <math.h>
+#include "minirt.h"
 
 t_vec4	vec4_mul(t_vec4 a, t_vec4 b)
 {

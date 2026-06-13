@@ -6,13 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 18:48:52 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/29 21:14:26 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:13 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "libft.h"
-#include "free_memory.h"
+#include "minirt.h"
 
 void	save_color(const char *token, t_color *dst)
 {

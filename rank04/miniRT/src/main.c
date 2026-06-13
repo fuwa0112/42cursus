@@ -6,12 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 16:00:03 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/29 11:20:39 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:31:30 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdlib.h>
 
 int	main(int argc, char *argv[])
 {

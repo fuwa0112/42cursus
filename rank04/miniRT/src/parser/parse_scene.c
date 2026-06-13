@@ -6,14 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 13:26:58 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/29 20:16:29 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:09 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include "libft.h"
-#include "validation.h"
-#include "free_memory.h"
+#include "minirt.h"
 
 void	parse_ambient(char **arr, t_scene *scene)
 {

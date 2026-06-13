@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace_calc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:59:09 by hakama            #+#    #+#             */
-/*   Updated: 2026/05/05 12:06:17 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:43 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "objects.h"
-#include "rt_math.h"
-#include <math.h>
 
 double	calc_shadow(t_env *env, t_vec4 hit_p, t_surface *obj)
 {

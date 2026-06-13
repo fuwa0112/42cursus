@@ -6,11 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 12:48:47 by thitoe            #+#    #+#             */
-/*   Updated: 2026/06/13 20:31:46 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:24:40 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "validation.h"
+#include "minirt.h"
 
 int	is_valid_ambient(char **arr)
 {

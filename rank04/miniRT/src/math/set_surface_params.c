@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_surface_params.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 19:36:53 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/29 19:37:36 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:28 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
+#include "minirt.h"
 
 void	set_surface_matrix(t_surface_parameters p, t_mat4 *m)
 {

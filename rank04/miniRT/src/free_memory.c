@@ -6,12 +6,11 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:14:25 by thitoe            #+#    #+#             */
-/*   Updated: 2026/04/22 20:33:35 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:31:35 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "scene.h"
+#include "minirt.h"
 
 void	free_content(void *content)
 {

@@ -1,6 +1,6 @@
 NAME = miniRT
 
-INC_DIR = inc src/libft/inc minilibx-linux/
+INC_DIR = . src/libft/inc minilibx-linux
 SRC_DIR = src
 OBJ_DIR = obj
 

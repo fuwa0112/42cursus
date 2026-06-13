@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math_intersection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:43:13 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/15 17:05:34 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:05 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "rt_math.h"
-#include <math.h>
+#include "minirt.h"
 
 static double	check_hit(double x, t_ray *ray, t_surface *surf)
 {

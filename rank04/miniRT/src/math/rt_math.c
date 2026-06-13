@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_math.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:43:23 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/29 20:24:32 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:22:11 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
-#include "rt_math.h"
-#include <math.h>
+#include "minirt.h"
 
 void	vec4_copy(t_vec4 *a, t_vec4 b)
 {

@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   img_buffer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakama <hakama@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:41:11 by hakama            #+#    #+#             */
-/*   Updated: 2026/04/27 09:51:10 by hakama           ###   ########.fr       */
+/*   Updated: 2026/06/13 21:23:37 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minirt.h"
-#include "mlx.h"
-#include <stdlib.h>
 
 void	*init_img_buffer(t_window *window)
 {
