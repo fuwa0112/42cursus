@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/07/01 16:04:50 by thitoe            #+#    #+#              #
+#    Updated: 2026/07/01 16:05:04 by thitoe           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = Serialize
+
+CPP = c++
+
+FLAGS = -Wall -Wextra -Werror -std=c++98
+
+SRC = main.cpp Serialization.cpp
+
+OBJ_DIR = obj
+
+OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CPP) $(FLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
