@@ -1,0 +1,98 @@
+name: inception
+
+services:
+  mariadb:
+    image: mariadb:inception
+    pull_policy: build
+    build: ./requirements/mariadb
+    env_file: .env
+    secrets:
+      - db_root_password
+      - db_password
+    volumes:
+      - database:/var/lib/mysql
+    tmpfs:
+      - /run/mysqld
+    networks:
+      - inception
+    restart: always
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          MYSQL_PWD="$$(cat /run/secrets/db_password)"
+          mariadb --protocol=TCP -h 127.0.0.1 -u "$${DB_USER}" "$${DB_NAME}"
+          -e 'SELECT 1' >/dev/null
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  wordpress:
+    image: wordpress:inception
+    pull_policy: build
+    build: ./requirements/wordpress
+    env_file: .env
+    secrets:
+      - db_password
+      - wp_admin_password
+      - wp_author_password
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    restart: always
+
+  nginx:
+    image: nginx:inception
+    pull_policy: build
+    build: ./requirements/nginx
+    env_file: .env
+    depends_on:
+      wordpress:
+        condition: service_started
+        restart: true
+    ports:
+      - "443:443"
+    volumes:
+      - type: volume
+        source: wordpress
+        target: /var/www/html
+        read_only: true
+        volume:
+          nocopy: true
+    networks:
+      - inception
+    restart: always
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          test "$$(curl -sS --cacert /etc/nginx/certs/server.crt
+          --resolve "$${DOMAIN_NAME}:443:127.0.0.1" -o /dev/null -w '%{http_code}'
+          "https://$${DOMAIN_NAME}/wp-login.php")" = 200
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+secrets:
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_password:
+    file: ../secrets/db_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_author_password:
+    file: ../secrets/wp_author_password.txt
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  database:
+  wordpress:

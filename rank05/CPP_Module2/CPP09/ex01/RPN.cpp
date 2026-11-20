@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 10:55:27 by thitoe            #+#    #+#             */
-/*   Updated: 2026/07/03 10:55:28 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/11/20 15:45:21 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 RPN::RPN()
 {}
 
-RPN::RPN(const RPN &obj)
-{
-    _stack = obj._stack;
-}
+RPN::RPN(const RPN &obj) : _stack(obj._stack)
+{}
 
 RPN &RPN::operator=(const RPN &obj)
 {
@@ -50,59 +48,78 @@ int RPN::calculation(int number1, int number2, char c) const
     switch (c)
     {
         case '+':
+            if ((number2 > 0 && number1 > INT_MAX - number2)
+                || (number2 < 0 && number1 < INT_MIN - number2))
+                throw RPN::InvalidInput();
             return (number1 + number2);
+
         case '-':
+            if ((number2 < 0 && number1 > INT_MAX + number2)
+                || (number2 > 0 && number1 < INT_MIN + number2))
+                throw RPN::InvalidInput();
             return (number1 - number2);
+
         case '*':
+            if (number1 > 0)
+            {
+                if ((number2 > 0 && number1 > INT_MAX / number2)
+                    || (number2 < 0 && number2 < INT_MIN / number1))
+                    throw RPN::InvalidInput();
+            }
+            else if (number1 < 0)
+            {
+                if ((number2 > 0 && number1 < INT_MIN / number2)
+                    || (number2 < 0 && number1 < INT_MAX / number2))
+                    throw RPN::InvalidInput();
+            }
             return (number1 * number2);
+
         case '/':
-        {
-            if (number2 == 0)
+            if (number2 == 0
+                || (number1 == INT_MIN && number2 == -1))
                 throw RPN::InvalidInput();
             return (number1 / number2);
-        }
-    }
-    return (0);
-}
 
-static bool check_char(char c)
-{
-    return (c != ' ' && c != '*' && c != '/'
-        && c != '+' && c != '-');
+        default:
+            throw RPN::InvalidInput();
+    }
 }
 
 void RPN::solution(const std::string &input)
 {
-    std::string operators = "+-*/";
+    _stack = std::stack<int>();
 
-    for (size_t i = 0; i < input.length(); i++)
+    std::istringstream iss(input);
+    std::string token;
+
+    while (iss >> token)
     {
-        if (std::isdigit(input[i]))
+        if (token.length() == 1
+            && token[0] >= '0' && token[0] <= '9')
         {
-            if (i + 1 > input.length())
-            {
-                if (check_char(input[i + 1]))
-                    throw RPN::InvalidInput();
-            }
-            _stack.push(input[i] - '0');
+            _stack.push(token[0] - '0');
         }
-        else if (operators.find(input[i]) != std::string::npos)
-        { 
+        else if (token == "+" || token == "-"
+            || token == "*" || token == "/")
+        {
             if (_stack.size() < 2)
                 throw RPN::WrongOperands();
+
             int number2 = _stack.top();
             _stack.pop();
+
             int number1 = _stack.top();
             _stack.pop();
-            int result = calculation(number1, number2, input[i]);
+
+            int result = calculation(number1, number2, token[0]);
             _stack.push(result);
         }
-        else if (std::isspace(input[i]))
-            continue;
         else
             throw RPN::InvalidInput();
     }
+
     if (_stack.size() != 1)
         throw RPN::InvalidExpression();
+
     std::cout << _stack.top() << std::endl;
 }

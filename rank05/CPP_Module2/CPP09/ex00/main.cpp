@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 10:55:09 by thitoe            #+#    #+#             */
-/*   Updated: 2026/07/03 10:55:10 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/07/08 15:31:27 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
-    {
-        std::cerr << "Error: Invalid Argument." << std::endl;
-        return (1);
-    }
+	if (argc != 2)
+	{
+    	if (argc == 1)
+        	std::cerr << "Error: could not open file." << std::endl;
+    	else
+        	std::cerr << "Error: Invalid Argument." << std::endl;
+    	return (1);
+	}
     try
     {
         BitcoinExchange exchange;

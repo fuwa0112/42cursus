@@ -6,7 +6,7 @@
 /*   By: thitoe <thitoe@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 10:55:30 by thitoe            #+#    #+#             */
-/*   Updated: 2026/07/03 10:55:31 by thitoe           ###   ########.fr       */
+/*   Updated: 2026/11/20 15:45:51 by thitoe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 #define RPN_HPP
 
 #include <iostream>
+#include <sstream>
+#include <climits>
 #include <stack>
 #include <string>
-
-// Reverse polish notation = numbers - 1 = operators (-+*/).
-// | 1 2 + 3 - | = (1 + 2) - 3 = 0.
 
 class RPN
 {
